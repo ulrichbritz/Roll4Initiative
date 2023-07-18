@@ -47,6 +47,8 @@ namespace UB
             PlayerActionMenu playerActionMenu = PlayerActionMenu.instance;
             playerActionMenu.ShowActionCountUI();
 
+            CameraController.instance.SetCameraState(CameraState.CameraBattleState);
+
             battleTriggerInUse = battleTrigger;
 
             allChars.Clear();
@@ -204,6 +206,7 @@ namespace UB
             }
 
             HideMenusAndMoveGrid();
+            CameraController.instance.SetCameraState(CameraState.CameraRoamingState);
         }
 
         private void BattleOverEnemyWin()
@@ -214,6 +217,7 @@ namespace UB
             }
 
             HideMenusAndMoveGrid();
+            CameraController.instance.SetCameraState(CameraState.CameraRoamingState);
         }
 
         private void HideMenusAndMoveGrid()

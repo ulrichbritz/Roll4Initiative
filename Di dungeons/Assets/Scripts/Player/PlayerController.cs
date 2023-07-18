@@ -101,7 +101,11 @@ namespace UB
             if(newFocus != focus)
             {
                 if(focus != null)
+                {
                     focus.OnDefocused();
+                    CameraController.instance.SetCameraState(CameraState.CameraRoamingState);
+                }
+                    
 
                 focus = newFocus;
                 Followtarget(focus);

@@ -8,6 +8,8 @@ namespace UB
     {
         public static CameraController instance;
 
+        private CameraState state;
+
         [Header("Components")]
         public Transform cam;
 
@@ -49,6 +51,7 @@ namespace UB
                 instance = this;
             }
 
+            state = CameraState.CameraRoamingState;
             moveTarget = transform.position;
         }
 
@@ -65,16 +68,35 @@ namespace UB
 
         private void LateUpdate()
         {
-            if (PlayerController.instance.isInBattle)
-            {
-                HandleBattleUpdate();
-            }
-            else
+            if(state == CameraState.CameraRoamingState)
             {
                 HandleRoamingUpdate();
             }
+            else if(state == CameraState.CameraBattleState)
+            {
+                HandleBattleUpdate();
+            }
+            else if(state == CameraState.CameraInteractionState)
+            {
+                HandleInteractionUpdate();
+            }
 
+            /*
+            if (PlayerController.instance.isInBattle)
+            {
+                
+            }
+            else
+            {
+                
+            }
+            */
            
+        }
+
+        public void SetCameraState(CameraState camState)
+        {
+            state = camState;             
         }
 
         private void HandleRoamingUpdate()
@@ -82,7 +104,7 @@ namespace UB
             Vector3 targetPos = roamingTarget.position + offset;
             transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref currentVelociry, smoothTime);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, roamingTarget.eulerAngles.y , 0f), roamingRotateSpeed * Time.deltaTime);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, roamingTarget.eulerAngles.y , 0f), roamingRotateSpeed * Time.deltaTime);
         }
 
         private void HandleBattleUpdate()
@@ -129,6 +151,11 @@ namespace UB
             cam.localRotation = Quaternion.Slerp(cam.localRotation, Quaternion.Euler(targetCamViewAngle, 0f, 0f), battleRotateSpeed * Time.deltaTime);
         }
 
+        private void HandleInteractionUpdate()
+        {
+            //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, PlayerController.instance.transform.eulerAngles.y, 0f), roamingRotateSpeed * Time.deltaTime);
+        }
+
         public void SetMoveTarget(Vector3 newTarget)
         {
             moveTarget = newTarget;
@@ -152,5 +179,7 @@ namespace UB
             isActionView = true;
         }
     }
+
+    public enum CameraState { CameraRoamingState, CameraBattleState, CameraInteractionState}
 
 }

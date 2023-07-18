@@ -15,6 +15,8 @@ namespace UB
         public virtual void Interact()
         {
             Debug.Log("Interacted with " + gameObject.name);
+
+            CameraController.instance.SetCameraState(CameraState.CameraInteractionState);
         }
 
         private void Awake()
