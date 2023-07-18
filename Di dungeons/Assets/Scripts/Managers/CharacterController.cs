@@ -81,6 +81,8 @@ namespace UB
 
                     if (Vector3.Distance(transform.position, moveTarget) < .1f)
                     {
+                        transform.position = moveTarget;
+                        agent.SetDestination(transform.position);
                         isMoving = false;
                         animationManager.Anim.SetBool("isMoving", isMoving);
 
