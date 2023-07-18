@@ -12,7 +12,7 @@ namespace UB
 
         bool hasInteracted = false;
 
-        public virtual void Interact()
+        public virtual void Interact(Transform interactorTransform = null)
         {
             Debug.Log("Interacted with " + gameObject.name);
 
@@ -34,7 +34,7 @@ namespace UB
                 float distance = Vector3.Distance(player.position, interactionPoint.position);
                 if(distance <= raduis)
                 {
-                    Interact();
+                    Interact(player);
                     hasInteracted = true;
                 }
             }
