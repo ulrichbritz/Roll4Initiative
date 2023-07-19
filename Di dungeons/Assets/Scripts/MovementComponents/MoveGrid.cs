@@ -83,7 +83,7 @@ namespace UB
                 {
                     movePoint.gameObject.SetActive(true);
 
-                    foreach (CharacterController cc in GameManager.instance.allChars)
+                    foreach (CharacterControllerManager cc in GameManager.instance.allChars)
                     {
                         if (Vector3.Distance(cc.transform.position, movePoint.transform.position) < 0.5)
                         {
@@ -106,7 +106,7 @@ namespace UB
                 {
                     bool shouldAdd = true;
 
-                    foreach (CharacterController cc in GameManager.instance.allChars)
+                    foreach (CharacterControllerManager cc in GameManager.instance.allChars)
                     {
                         if (Vector3.Distance(cc.transform.position, movePoint.transform.position) < 0.5)
                         {

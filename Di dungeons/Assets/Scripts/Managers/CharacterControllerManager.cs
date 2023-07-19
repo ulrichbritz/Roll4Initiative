@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 namespace UB
 {
-    public class CharacterController : MonoBehaviour
+    public class CharacterControllerManager : MonoBehaviour
     {
         [Header("StateCheckBool")]
         public bool isInBattle = false;
@@ -38,9 +38,9 @@ namespace UB
 
         [Header("Actions")]
         [HideInInspector]
-        public List<CharacterController> allTargets = new List<CharacterController>();
-        public List<CharacterController> primaryAttackTargets = new List<CharacterController>();
-        public List<CharacterController> secondaryAttackTargets = new List<CharacterController>();
+        public List<CharacterControllerManager> allTargets = new List<CharacterControllerManager>();
+        public List<CharacterControllerManager> primaryAttackTargets = new List<CharacterControllerManager>();
+        public List<CharacterControllerManager> secondaryAttackTargets = new List<CharacterControllerManager>();
         [HideInInspector]
         public int currentTarget;
 
@@ -133,7 +133,7 @@ namespace UB
 
             if(isAI == false)
             {
-                foreach(CharacterController cc in GameManager.instance.allChars)
+                foreach(CharacterControllerManager cc in GameManager.instance.allChars)
                 {
                     if (cc.isAI)
                     {
@@ -152,7 +152,7 @@ namespace UB
             }
             else
             {
-                foreach (CharacterController cc in GameManager.instance.allChars)
+                foreach (CharacterControllerManager cc in GameManager.instance.allChars)
                 {
                     if (cc.isAI == false)
                     {

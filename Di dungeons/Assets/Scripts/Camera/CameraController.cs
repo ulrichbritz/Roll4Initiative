@@ -11,7 +11,40 @@ namespace UB
         private CameraState state;
 
         [Header("Components")]
-        public Transform cam;
+        //scripts
+        PlayerController playerController;
+
+        //components
+        public Transform cameraSystemObj;
+        public Transform cameraPivotObj;
+        public Transform camObj;
+
+        [Header("Roaming CameraSettings")]
+        //roaming
+        [SerializeField] private float cameraSmoothSpeed = 1;
+        [SerializeField] private float upAndDownRotationSpeed = 220f;
+        [SerializeField] private float leftAndRightRotationSpeed = 220f;
+        [SerializeField] private float minPivot = -30f; //lowest able to look down
+        [SerializeField] private float maxPivot = 60f; //highest able to look up
+
+        [SerializeField] Vector3 roamingCameraSystemTransform;
+        [SerializeField] Vector3 roamingCameraPivotTransform;
+        [SerializeField] Vector3 roamingCamTransform;
+
+        [SerializeField] float cameraCollisionRaduis = 0.2f;
+        [SerializeField] LayerMask collideWithLayers;
+
+        [Header("Roaming Camera Values")]
+        private Vector3 cameraVelocity;
+        private Vector3 cameraObjectPosition; //used for collision, moves cam to this pos
+        [SerializeField] float leftAndRightLookAngle;
+        [SerializeField] float upAndDownLookAngle;
+        private float cameraZPos;
+        private float targetCameraZPos;
+
+
+        //old
+
 
         public float actionCamViewAngle = 30f;
         private float targetCamViewAngle;
@@ -51,12 +84,18 @@ namespace UB
                 instance = this;
             }
 
-            state = CameraState.CameraRoamingState;
+            //scripts
+            playerController = PlayerController.instance;
+
             moveTarget = transform.position;
+
+            DontDestroyOnLoad(gameObject);
         }
 
         private void Start()
         {
+            SetCameraState(CameraState.CameraRoamingState);
+            /*
             //for battle
             targetCamViewAngle = 45f;
             normCamPos = cam.localPosition;
@@ -64,6 +103,7 @@ namespace UB
 
             //for roaming
             roamingTarget = PlayerController.instance.transform;
+            */
         }
 
         private void LateUpdate()
@@ -81,30 +121,90 @@ namespace UB
                 HandleInteractionUpdate();
             }
 
-            /*
-            if (PlayerController.instance.isInBattle)
-            {
-                
-            }
-            else
-            {
-                
-            }
-            */
+            HandleCameraCollisions();
            
         }
 
         public void SetCameraState(CameraState camState)
         {
-            state = camState;             
+            state = camState;
+            
+            if(state == CameraState.CameraRoamingState)
+            {
+                cameraSystemObj.transform.position = roamingCameraSystemTransform;
+                cameraPivotObj.transform.position = roamingCameraPivotTransform;
+                camObj.transform.position = roamingCamTransform;
+                cameraZPos = camObj.transform.localPosition.z;
+                print("changed camera to roaming state");
+            }
+        }
+
+        private void HandleCameraCollisions()
+        {
+            targetCameraZPos = cameraZPos;
+
+            RaycastHit hit;
+            Vector3 direction = camObj.transform.position - cameraPivotObj.transform.position;
+            direction.Normalize();
+
+            //check if object infront of cam
+            if (Physics.SphereCast(cameraPivotObj.position, cameraCollisionRaduis, direction, out hit, Mathf.Abs(targetCameraZPos), 0))
+            {
+                //if there is , get distance from it
+                float distanceFromHitObj = Vector3.Distance(cameraPivotObj.position, hit.point);
+                targetCameraZPos = -(distanceFromHitObj - cameraCollisionRaduis);
+            }
+
+            //if target pos is less that collision raduis, subtract our collision raduis making it snap back
+            if(Mathf.Abs(targetCameraZPos) < cameraCollisionRaduis)
+            {
+                targetCameraZPos = -cameraCollisionRaduis;
+            }
+
+            //apply final pos using lerp over time
+            cameraObjectPosition.z = Mathf.Lerp(camObj.transform.localPosition.z, targetCameraZPos, 0.2f);
+            camObj.transform.localPosition = cameraObjectPosition;
         }
 
         private void HandleRoamingUpdate()
         {
-            Vector3 targetPos = roamingTarget.position + offset;
-            transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref currentVelociry, smoothTime);
+            if(playerController != null)
+            {
+                HandleRoamingFollowPlayer();
+                HandleRoamingRotation();
+            }         
+        }
 
-            //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, roamingTarget.eulerAngles.y , 0f), roamingRotateSpeed * Time.deltaTime);
+        private void HandleRoamingFollowPlayer()
+        {
+            Vector3 targetCameraPos = Vector3.SmoothDamp(transform.position, playerController.transform.position, ref cameraVelocity, cameraSmoothSpeed * Time.fixedDeltaTime);
+            transform.position = targetCameraPos;
+        }
+
+        private void HandleRoamingRotation()
+        {
+            //locked on rotations
+
+            //normal rotations
+            leftAndRightLookAngle += (InputHandler.instance.cameraHorizontalInput * leftAndRightRotationSpeed) * Time.fixedDeltaTime;
+            upAndDownLookAngle -= (InputHandler.instance.cameraVerticalInput * upAndDownRotationSpeed) * Time.fixedDeltaTime;
+            upAndDownLookAngle = Mathf.Clamp(upAndDownLookAngle, minPivot, maxPivot);
+
+
+            Vector3 cameraRotation;
+            Quaternion targetRotation;
+
+            //rotate this gameobject (cameraSystem) left and right
+            cameraRotation = Vector3.zero;
+            cameraRotation.y = leftAndRightLookAngle;
+            targetRotation = Quaternion.Euler(cameraRotation);
+            transform.rotation = targetRotation;
+
+            //rotate the pivot gameobject up and down
+            cameraRotation = Vector3.zero;
+            cameraRotation.x = upAndDownLookAngle;
+            targetRotation = Quaternion.Euler(cameraRotation);
+            cameraPivotObj.localRotation = targetRotation;
         }
 
         private void HandleBattleUpdate()
@@ -148,7 +248,7 @@ namespace UB
 
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, targetRotation, 0f), battleRotateSpeed * Time.deltaTime);
 
-            cam.localRotation = Quaternion.Slerp(cam.localRotation, Quaternion.Euler(targetCamViewAngle, 0f, 0f), battleRotateSpeed * Time.deltaTime);
+            camObj.localRotation = Quaternion.Slerp(camObj.localRotation, Quaternion.Euler(targetCamViewAngle, 0f, 0f), battleRotateSpeed * Time.deltaTime);
         }
 
         private void HandleInteractionUpdate()
@@ -160,8 +260,8 @@ namespace UB
         {
             moveTarget = newTarget;
 
-            targetCamViewAngle = 45f;
-            cam.localPosition = normCamPos;
+           // targetCamViewAngle = 45f;
+           // cam.localPosition = normCamPos;
             isActionView = false;
         }
 
@@ -174,7 +274,7 @@ namespace UB
             targetRotation = activeChar.transform.rotation.eulerAngles.y;
 
             targetCamViewAngle = actionCamViewAngle;
-            cam.transform.localPosition = actionCamPos;
+            camObj.transform.localPosition = actionCamPos;
 
             isActionView = true;
         }

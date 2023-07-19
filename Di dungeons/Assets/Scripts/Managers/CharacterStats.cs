@@ -10,7 +10,7 @@ namespace UB
     {
         [Header("Scripts")]
         [HideInInspector]
-        public CharacterController characterController;
+        public CharacterControllerManager characterController;
         [HideInInspector]
         public AnimationManager animationManager;
 
@@ -57,7 +57,7 @@ namespace UB
 
         private void Awake()
         {
-            characterController = GetComponent<CharacterController>();
+            characterController = GetComponent<CharacterControllerManager>();
             animationManager = GetComponent<AnimationManager>();
 
             ResetInfoAmounts();

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UB
 {
-    public class NPCController : CharacterController
+    public class NPCController : CharacterControllerManager
     {
 
     }

@@ -30,7 +30,7 @@ namespace UB
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.gameObject.GetComponent<CharacterController>() == GameManager.instance.activeCharacter.allTargets[GameManager.instance.activeCharacter.currentTarget])
+            if(other.gameObject.GetComponent<CharacterControllerManager>() == GameManager.instance.activeCharacter.allTargets[GameManager.instance.activeCharacter.currentTarget])
             {
                 CharacterStats characterStats = other.GetComponent<CharacterStats>();
 

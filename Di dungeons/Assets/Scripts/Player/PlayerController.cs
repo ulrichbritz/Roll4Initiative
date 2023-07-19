@@ -4,9 +4,16 @@ using UnityEngine;
 
 namespace UB
 {
-    public class PlayerController : CharacterController
+    public class PlayerController : CharacterControllerManager
     {
         public static PlayerController instance;
+
+        [Header("Components")]
+        //scripts
+        CharacterStats charStats;
+
+        //components
+        CharacterController characterController;
 
         //Roaming
         [Header("Player Roaming Scripts")]
@@ -18,7 +25,15 @@ namespace UB
         [Header("Interactable")]
         Transform target;
         public Interactable focus;
-        
+
+        [Header("Roaming Movement")]
+        public float verticalMovement;
+        public float horizontalMovement;
+        public float moveAmount;
+        private Vector3 moveDirection;
+        private Vector3 targetRotationDirection;
+        [SerializeField] float rotationSpeed = 0.25f;
+
 
 
         protected override void Awake()
@@ -34,7 +49,13 @@ namespace UB
 
             base.Awake();
 
+            //scripts
             inputHandler = GetComponent<InputHandler>();
+            charStats = GetComponent<CharacterStats>();
+
+            //components
+            characterController = GetComponent<CharacterController>();
+
         }
 
         private void Update()
@@ -52,22 +73,62 @@ namespace UB
         #region Roaming Functions
         public void HandleRoamingUpdate()
         {
-            //animation
-            if(agent.velocity.magnitude > 0)
+            //handle movement
+            HandleRoamingMovement();
+        }
+
+        public void HandleRoamingMovement()
+        {
+            HandleGroundedMovement();
+            HandleRoamingRotation();
+        }
+
+        private void GetVerticalAndHorizontalInputs()
+        {
+            verticalMovement = inputHandler.VerticalInput;
+            horizontalMovement = inputHandler.HorizontalInput;
+
+            //clamp movements
+        }
+
+        public void HandleGroundedMovement()
+        {
+            GetVerticalAndHorizontalInputs();
+
+            moveDirection = CameraController.instance.transform.forward * verticalMovement;
+            moveDirection = moveDirection + CameraController.instance.transform.right * horizontalMovement;
+
+            moveDirection.Normalize();
+            moveDirection.y = 0;
+
+            if(inputHandler.moveAmount > 0.5f)
             {
-                animationManager.Anim.SetBool("isMoving", true);
+                //move at running speed
+                characterController.Move(moveDirection * (charStats.moveSpeed/8) * Time.fixedDeltaTime);
             }
-            else
+            else if(inputHandler.moveAmount <= 0.5f)
             {
-                animationManager.Anim.SetBool("isMoving", false);
+                //walking speed
+                characterController.Move(moveDirection * (charStats.moveSpeed/12) * Time.fixedDeltaTime);
+            }
+        }
+
+        private void HandleRoamingRotation()
+        {
+            targetRotationDirection = Vector3.zero;
+            targetRotationDirection = CameraController.instance.camObj.transform.forward * verticalMovement;
+            targetRotationDirection = targetRotationDirection + (CameraController.instance.camObj.transform.right * horizontalMovement);
+            targetRotationDirection.Normalize();
+            targetRotationDirection.y = 0;
+
+            if(targetRotationDirection == Vector3.zero)
+            {
+                targetRotationDirection = transform.forward;
             }
 
-            //targetfollowing
-            if(target != null)
-            {
-                agent.SetDestination(target.transform.position);
-                FaceTarget();
-            }
+            Quaternion newRotation = Quaternion.LookRotation(targetRotationDirection);
+            Quaternion targetRotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed * Time.fixedDeltaTime);
+            transform.rotation = targetRotation;
         }
 
         public void StartMove(Vector2 mousePos)
@@ -103,7 +164,6 @@ namespace UB
                 if(focus != null)
                 {
                     focus.OnDefocused();
-                    CameraController.instance.SetCameraState(CameraState.CameraRoamingState);
                 }
                     
 
@@ -116,7 +176,9 @@ namespace UB
 
         public void RemoveFocus()
         {
-            if(focus != null)
+            CameraController.instance.SetCameraState(CameraState.CameraRoamingState);
+
+            if (focus != null)
                 focus.OnDefocused();
 
             focus = null;
