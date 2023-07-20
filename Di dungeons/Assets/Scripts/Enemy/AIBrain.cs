@@ -8,18 +8,18 @@ namespace UB
     public class AIBrain : MonoBehaviour
     {
         [Header("Scripts")]
-        private CharacterControllerManager characterController;
+        private CharacterManager characterController;
 
         [Header("Variables")]
         [SerializeField] float waitBeforeActing = 1f;
 
-        public List<CharacterControllerManager> targetsToPickFrom = new List<CharacterControllerManager>();
-        public List<CharacterControllerManager> allPlayers = new List<CharacterControllerManager>();
+        public List<CharacterManager> targetsToPickFrom = new List<CharacterManager>();
+        public List<CharacterManager> allPlayers = new List<CharacterManager>();
 
         private void Awake()
         {
             //scripts
-            characterController = GetComponent<CharacterControllerManager>();
+            characterController = GetComponent<CharacterManager>();
         }
 
         public void ChooseAction()
@@ -37,7 +37,7 @@ namespace UB
 
             //getting all player characters
             allPlayers.Clear();
-            foreach(CharacterControllerManager cc in GameManager.instance.allChars)
+            foreach(CharacterManager cc in GameManager.instance.allChars)
             {
                 if(cc.isAI == false)
                 {
@@ -56,9 +56,9 @@ namespace UB
 
                 targetsToPickFrom.Clear();
                 targetsToPickFrom = characterController.primaryAttackTargets.OrderByDescending(ch => ch.CharacterStats.currentHP).ToList();
-                CharacterControllerManager useThisTarget = targetsToPickFrom[0];
+                CharacterManager useThisTarget = targetsToPickFrom[0];
                 int targetCount = 0;
-                foreach(CharacterControllerManager cc in characterController.allTargets)
+                foreach(CharacterManager cc in characterController.allTargets)
                 {
                     if(characterController.allTargets[targetCount])
                     {
@@ -79,9 +79,9 @@ namespace UB
 
                 targetsToPickFrom.Clear();
                 targetsToPickFrom = characterController.secondaryAttackTargets.OrderByDescending(ch => ch.CharacterStats.currentHP).ToList();
-                CharacterControllerManager useThisTarget = targetsToPickFrom[0];
+                CharacterManager useThisTarget = targetsToPickFrom[0];
                 int targetCount = 0;
-                foreach (CharacterControllerManager cc in characterController.allTargets)
+                foreach (CharacterManager cc in characterController.allTargets)
                 {
                     if (characterController.allTargets[targetCount] == useThisTarget)
                     {

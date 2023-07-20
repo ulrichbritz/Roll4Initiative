@@ -7,8 +7,8 @@ namespace UB
     public class BattleTrigger : MonoBehaviour
     {
         [Header("Enemies")]
-        [SerializeField] List<CharacterControllerManager> enemiesInBattle;
-        public List<CharacterControllerManager> EnemiesInBattle => enemiesInBattle;
+        [SerializeField] List<CharacterManager> enemiesInBattle;
+        public List<CharacterManager> EnemiesInBattle => enemiesInBattle;
 
         [Header("Components")]
         [SerializeField] Collider triggerCollider;

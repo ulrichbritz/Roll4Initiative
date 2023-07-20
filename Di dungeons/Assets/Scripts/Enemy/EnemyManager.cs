@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UB
 {
-    public class EnemyController : CharacterControllerManager
+    public class EnemyManager : CharacterManager
     {
         protected override void Awake()
         {

@@ -4,13 +4,15 @@ using UnityEngine;
 
 namespace UB
 {
-    public class PlayerController : CharacterControllerManager
+    public class PlayerManager : CharacterManager
     {
-        public static PlayerController instance;
+        public static PlayerManager instance;
 
         [Header("Components")]
         //scripts
         CharacterStats charStats;
+        [HideInInspector] public PlayerAnimationManager playerAnimationManager;
+
 
         //components
         CharacterController characterController;
@@ -52,9 +54,8 @@ namespace UB
             //scripts
             inputHandler = GetComponent<InputHandler>();
             charStats = GetComponent<CharacterStats>();
-
-            //components
             characterController = GetComponent<CharacterController>();
+            playerAnimationManager = GetComponent<PlayerAnimationManager>();
 
         }
 

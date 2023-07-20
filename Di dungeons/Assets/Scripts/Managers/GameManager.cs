@@ -11,8 +11,8 @@ namespace UB
 
         [Header("Battle Variables")]
         private BattleTrigger battleTriggerInUse;
-        public CharacterControllerManager activeCharacter;
-        public List<CharacterControllerManager> allChars = new List<CharacterControllerManager>();
+        public CharacterManager activeCharacter;
+        public List<CharacterManager> allChars = new List<CharacterManager>();
         private int currentChar;
         private int totalActionPoints;
         int actionPointsRemaining;
@@ -42,7 +42,7 @@ namespace UB
         }
 
         //In Battle
-        public void StartBattle(List<CharacterControllerManager> battleTriggerEnemies, CharacterControllerManager player, BattleTrigger battleTrigger)
+        public void StartBattle(List<CharacterManager> battleTriggerEnemies, CharacterManager player, BattleTrigger battleTrigger)
         {
             PlayerActionMenu playerActionMenu = PlayerActionMenu.instance;
             playerActionMenu.ShowActionCountUI();
@@ -55,7 +55,7 @@ namespace UB
             allChars.AddRange(battleTriggerEnemies);
             allChars.Add(player);
 
-            foreach (CharacterControllerManager characterController in allChars)
+            foreach (CharacterManager characterController in allChars)
             {
                 characterController.isInBattle = true;
                 characterController.RollForInitiative();
@@ -177,7 +177,7 @@ namespace UB
             int friendlyChars = 0;
             int enemyChars = 0;
 
-            foreach (CharacterControllerManager cc in allChars)
+            foreach (CharacterManager cc in allChars)
             {
                 if (cc.isAI)
                     enemyChars++;
@@ -197,7 +197,7 @@ namespace UB
 
         private void BattleOverPlayerWin()
         {
-            foreach (CharacterControllerManager cc in allChars)
+            foreach (CharacterManager cc in allChars)
             {
                 if (cc.isAI == false)
                 {
@@ -211,7 +211,7 @@ namespace UB
 
         private void BattleOverEnemyWin()
         {
-            foreach (CharacterControllerManager cc in allChars)
+            foreach (CharacterManager cc in allChars)
             {
                 cc.StopBattle();
             }

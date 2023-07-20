@@ -11,7 +11,8 @@ namespace UB
         PlayerControls playerControls;
 
         [Header("Scripts")]
-        PlayerController characterController;
+        [HideInInspector] public PlayerManager playerManager;
+        //[HideInInspector] public PlayerAnimationManager playerAnimationManager;
 
         [Header("Movement Inputs")]
         Vector2 movementInput;
@@ -51,7 +52,8 @@ namespace UB
                 Destroy(gameObject);
             }
 
-            characterController = GetComponent<PlayerController>();
+            playerManager = GetComponent<PlayerManager>();
+            //playerAnimationManager = GetComponent<PlayerAnimationManager>();
         }
 
         private void Start()
@@ -132,6 +134,11 @@ namespace UB
             {
                 moveAmount = 1;
             }
+
+            //pass zero because not locked on
+            playerManager.playerAnimationManager.UpdateAnimatorMovementParameters(0, moveAmount);
+
+            //if locked on pass horizontal 
         }
 
         private void HandleCameraMovementInput()
@@ -146,11 +153,11 @@ namespace UB
             {
                 toggleInventoryInput = false;
 
-                if (characterController.isInBattle)
+                if (playerManager.isInBattle)
                     return;
 
                 //maybe remove this
-                characterController.RemoveFocus();
+                playerManager.RemoveFocus();
 
                 UIManager.instance.ToggleInventory();
             }      
@@ -162,11 +169,11 @@ namespace UB
             {
                 toggleEquipmentInput = false;
 
-                if (characterController.isInBattle)
+                if (playerManager.isInBattle)
                     return;
 
                 //maybe remove this
-                characterController.RemoveFocus();
+                playerManager.RemoveFocus();
 
                 UIManager.instance.ToggleEquipment();
             }

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 namespace UB
 {
-    public class CharacterControllerManager : MonoBehaviour
+    public class CharacterManager : MonoBehaviour
     {
         [Header("StateCheckBool")]
         public bool isInBattle = false;
@@ -27,6 +27,7 @@ namespace UB
         [HideInInspector]
         public NavMeshAgent agent;
         public GameObject hitPoint;
+        [HideInInspector] public Animator animator;
 
         [Header("Movement")]
         [HideInInspector] public Vector3 moveTarget;
@@ -38,9 +39,9 @@ namespace UB
 
         [Header("Actions")]
         [HideInInspector]
-        public List<CharacterControllerManager> allTargets = new List<CharacterControllerManager>();
-        public List<CharacterControllerManager> primaryAttackTargets = new List<CharacterControllerManager>();
-        public List<CharacterControllerManager> secondaryAttackTargets = new List<CharacterControllerManager>();
+        public List<CharacterManager> allTargets = new List<CharacterManager>();
+        public List<CharacterManager> primaryAttackTargets = new List<CharacterManager>();
+        public List<CharacterManager> secondaryAttackTargets = new List<CharacterManager>();
         [HideInInspector]
         public int currentTarget;
 
@@ -48,6 +49,7 @@ namespace UB
         {
             //components
             agent = GetComponent<NavMeshAgent>();
+            animator = GetComponentInChildren<Animator>();
 
             //scripts
             characterStats = GetComponent<CharacterStats>();
@@ -133,7 +135,7 @@ namespace UB
 
             if(isAI == false)
             {
-                foreach(CharacterControllerManager cc in GameManager.instance.allChars)
+                foreach(CharacterManager cc in GameManager.instance.allChars)
                 {
                     if (cc.isAI)
                     {
@@ -152,7 +154,7 @@ namespace UB
             }
             else
             {
-                foreach (CharacterControllerManager cc in GameManager.instance.allChars)
+                foreach (CharacterManager cc in GameManager.instance.allChars)
                 {
                     if (cc.isAI == false)
                     {

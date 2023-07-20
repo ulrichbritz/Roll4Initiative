@@ -12,7 +12,7 @@ namespace UB
 
         [Header("Components")]
         //scripts
-        PlayerController playerController;
+        PlayerManager playerManager;
 
         //components
         public Transform cameraSystemObj;
@@ -85,7 +85,7 @@ namespace UB
             }
 
             //scripts
-            playerController = PlayerController.instance;
+            playerManager = PlayerManager.instance;
 
             moveTarget = transform.position;
 
@@ -168,7 +168,7 @@ namespace UB
 
         private void HandleRoamingUpdate()
         {
-            if(playerController != null)
+            if(playerManager != null)
             {
                 HandleRoamingFollowPlayer();
                 HandleRoamingRotation();
@@ -177,7 +177,7 @@ namespace UB
 
         private void HandleRoamingFollowPlayer()
         {
-            Vector3 targetCameraPos = Vector3.SmoothDamp(transform.position, playerController.transform.position, ref cameraVelocity, cameraSmoothSpeed * Time.fixedDeltaTime);
+            Vector3 targetCameraPos = Vector3.SmoothDamp(transform.position, playerManager.transform.position, ref cameraVelocity, cameraSmoothSpeed * Time.fixedDeltaTime);
             transform.position = targetCameraPos;
         }
 
