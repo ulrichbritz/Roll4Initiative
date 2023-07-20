@@ -15,7 +15,7 @@ namespace UB
 
 
         //components
-        [HideInInspector] public CharacterController characterController;
+        
 
         //Roaming
         [Header("Player Roaming Scripts")]
@@ -58,7 +58,6 @@ namespace UB
             //scripts
             inputHandler = GetComponent<InputHandler>();
             charStats = GetComponent<CharacterStats>();
-            characterController = GetComponent<CharacterController>();
             playerAnimationManager = GetComponent<PlayerAnimationManager>();
 
         }
@@ -68,8 +67,10 @@ namespace UB
             agent.enabled = false;
         }
 
-        private void Update()
+        protected override void Update()
         {
+            base.Update();
+
             if (isInBattle)
             {
                 HandleBattleUpdate();
@@ -116,19 +117,19 @@ namespace UB
 
             if (isSprinting)
             {
-                characterController.Move(moveDirection * (charStats.moveSpeed / 6) * Time.fixedDeltaTime);
+                characterController.Move(moveDirection * (charStats.moveSpeed/2) * Time.fixedDeltaTime);
             }
             else
             {
                 if (inputHandler.moveAmount > 0.5f)
                 {
                     //move at running speed
-                    characterController.Move(moveDirection * (charStats.moveSpeed / 8) * Time.fixedDeltaTime);
+                    characterController.Move(moveDirection * (charStats.moveSpeed/3) * Time.fixedDeltaTime);
                 }
                 else if (inputHandler.moveAmount <= 0.5f)
                 {
                     //walking speed
-                    characterController.Move(moveDirection * (charStats.moveSpeed / 12) * Time.fixedDeltaTime);
+                    characterController.Move(moveDirection * (charStats.moveSpeed / 4) * Time.fixedDeltaTime);
                 }
             }           
         }
@@ -187,13 +188,13 @@ namespace UB
             if (isJumping)
                 return;
 
-            if (isGrounded)
+            if (!isGrounded)
                 return;
 
             //if using 2 handed use 2 handed jump anim
 
             //if using one handed weapon use 2 handed jump anim
-            animationManager.PlayTargetActionAnimation("Jump_Start_01", false);
+            animationManager.PlayTargetActionAnimation("Jump_Start_01", false, false);
 
             isJumping = true;
 

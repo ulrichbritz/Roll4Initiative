@@ -11,13 +11,16 @@ namespace UB
             base.Awake();
         }
 
-        private void Update()
+        protected override void Update()
         {
+            base.Update();
+
             if (isInBattle)
             {
                 HandleBattleUpdate();
             }
         }
+
     }
 }
 

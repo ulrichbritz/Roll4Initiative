@@ -28,6 +28,7 @@ namespace UB
         public NavMeshAgent agent;
         public GameObject hitPoint;
         [HideInInspector] public Animator animator;
+        [HideInInspector] public CharacterController characterController;
 
         [Header("Movement")]
         [HideInInspector] public Vector3 moveTarget;
@@ -51,18 +52,25 @@ namespace UB
         [HideInInspector] public bool canMove;
         [HideInInspector] public bool applyRootMotion = false;
         [HideInInspector] public bool isSprinting = false;
-        [HideInInspector] public bool isGrounded = false;
+         public bool isGrounded = false;
         [HideInInspector] public bool isJumping = false;
 
         [Header("Ground Check, Falling and Jumping")]
+        [SerializeField] float gravityForce = -5.55f;
+        [SerializeField] LayerMask groundLayer;
+        [SerializeField] float groundCheckSphereRaduis = 0.5f;
         [SerializeField] protected Vector3 yVelocity; //force that pulls our character up or down (jump or fall)
-        [SerializeField] protected float groundedVelocity = -20f; //force at which char is sticking to ground
+        [SerializeField] protected float groundedYVelocity = -20f; //force at which char is sticking to ground while grounded
+        [SerializeField] protected float fallStartYVelocity = -5f;
+        protected bool fallingVelocirtyHasBeenSet = false;
+        protected float inAirTimer = 0;
 
         protected virtual void Awake()
         {
             //components
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponentInChildren<Animator>();
+            characterController = GetComponent<CharacterController>();
 
             //scripts
             characterStats = GetComponent<CharacterStats>();
@@ -80,9 +88,44 @@ namespace UB
             agent.speed = characterStats.moveSpeed;
         }
 
-        private void Update()
+        protected virtual void Update()
         {
+            animator.SetBool("isGrounded", isGrounded);
 
+            HandleGroundCheck();
+        }
+
+        public void HandleGroundCheck()
+        {
+            isGrounded = Physics.CheckSphere(transform.position, groundCheckSphereRaduis, groundLayer);
+
+            if (isGrounded)
+            {
+                //if not attempting to jump or move up run this
+                if (yVelocity.y < 0)
+                {
+                    inAirTimer = 0;
+                    fallingVelocirtyHasBeenSet = false;
+                    yVelocity.y = groundedYVelocity;
+                }
+            }
+            else
+            {
+                //if not jumping and falling velocity not set yet
+                if (!isJumping && !fallingVelocirtyHasBeenSet)
+                {
+                    fallingVelocirtyHasBeenSet = true;
+                    yVelocity.y = fallStartYVelocity;
+                }
+
+                inAirTimer += Time.fixedDeltaTime;
+                animator.SetFloat("inAirTimer", inAirTimer);
+
+                yVelocity.y += gravityForce * Time.fixedDeltaTime;
+            }
+
+            //always a down force 
+            characterController.Move(yVelocity * Time.fixedDeltaTime);
         }
 
         public void HandleBattleUpdate()
@@ -205,11 +248,18 @@ namespace UB
         {
             CameraController.instance.SetActionView();
 
-            animationManager.Anim.SetTrigger("doRangedAttack");
-
            // allTargets[currentTarget].GetComponent<CharacterStats>().TakeDamage(Mathf.RoundToInt(characterStats.damage));
         }
 
-    }
 
+
+
+
+
+        protected void OnDrawGizmosSelected()
+        {
+            Gizmos.DrawSphere(transform.position, groundCheckSphereRaduis);
+        }
+
+    }
 }
