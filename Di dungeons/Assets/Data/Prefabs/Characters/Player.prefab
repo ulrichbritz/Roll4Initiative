@@ -653,6 +653,7 @@ MonoBehaviour:
   canRotate: 0
   canMove: 0
   applyRootMotion: 0
+  isSprinting: 0
   playerAnimationManager: {fileID: 0}
   characterController: {fileID: 0}
   movementMask:
@@ -3494,7 +3495,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 3c37240ec28287d4c93dabc9438165cf, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 

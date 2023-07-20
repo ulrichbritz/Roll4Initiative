@@ -141,7 +141,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 3c37240ec28287d4c93dabc9438165cf, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -4539,12 +4539,18 @@ MonoBehaviour:
   animationManager: {fileID: 0}
   agent: {fileID: 0}
   hitPoint: {fileID: 5201814163799279223}
+  animator: {fileID: 0}
   moveTarget: {x: 0, y: 0, z: 0}
   Initiative: 0
   allTargets: []
   primaryAttackTargets: []
   secondaryAttackTargets: []
   currentTarget: 0
+  isPerformingAction: 0
+  canRotate: 0
+  canMove: 0
+  applyRootMotion: 0
+  isSprinting: 0
 --- !u!114 &5654165779971414476
 MonoBehaviour:
   m_ObjectHideFlags: 0

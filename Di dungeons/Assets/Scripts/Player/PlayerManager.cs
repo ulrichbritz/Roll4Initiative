@@ -63,6 +63,11 @@ namespace UB
 
         }
 
+        private void Start()
+        {
+            agent.enabled = false;
+        }
+
         private void Update()
         {
             if (isInBattle)
@@ -111,7 +116,7 @@ namespace UB
 
             if (isSprinting)
             {
-                characterController.Move(moveDirection * (charStats.moveSpeed / 16) * Time.fixedDeltaTime);
+                characterController.Move(moveDirection * (charStats.moveSpeed / 6) * Time.fixedDeltaTime);
             }
             else
             {
@@ -257,6 +262,9 @@ namespace UB
 
         IEnumerator BattleEntered(BattleTrigger battleTrigger)
         {
+            isInBattle = true;
+            agent.enabled = true;
+
             //change camera movetarget
             CameraController.instance.SetMoveTarget(transform.position);
 
@@ -274,6 +282,13 @@ namespace UB
 
             GameManager.instance.StartBattle(battleTrigger.EnemiesInBattle, this, battleTrigger);
 
+        }
+
+        public override void StopBattle()
+        {
+            base.StopBattle();
+
+            agent.enabled = false;
         }
     }
 }

@@ -126,7 +126,7 @@ namespace UB
             Initiative = Random.Range(1, 20);
         }
 
-        public void StopBattle()
+        public virtual void StopBattle()
         {
             isInBattle = false;
             MoveGrid.instance.HideMovePoints();
