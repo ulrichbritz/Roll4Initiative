@@ -29,17 +29,9 @@ namespace UB
 
 
         [Header("Action Inputs")]
+        bool sprintInput = false;
         bool toggleInventoryInput = false;
-        bool toggleEquipmentInput = false;
-
-
-
-
-        //old
-        Vector2 mousePos;
-        bool moveInput = false;
-
-        
+        bool toggleEquipmentInput = false;      
 
         private void Awake()
         {
@@ -89,6 +81,8 @@ namespace UB
                 //playerControls.PlayerMovement.Movement.performed += inputAction => moveInput = true;
 
                 //actions
+                playerControls.PlayerActions.Sprint.performed += inputAction => sprintInput = true;
+                playerControls.PlayerActions.Sprint.canceled += inputAction => sprintInput = false;
                 playerControls.PlayerActions.ToggleInventory.performed += inputAction => toggleInventoryInput = true;
                 playerControls.PlayerActions.ToggleEquipment.performed += inputAction => toggleEquipmentInput = true;
             }
@@ -109,15 +103,25 @@ namespace UB
 
         private void Update()
         {
+            if (playerManager.isInBattle)
+                return;
+
+            HandleAllRoamingInputs();
+        }
+
+        private void HandleAllRoamingInputs()
+        {
             //movement
             HandlePlayerMovementInput();
             HandleCameraMovementInput();
 
             //actions
+            HandleSprintInput();
             HandleToggleInventoryInput();
             HandleToggleEquipmentInput();
         }
 
+        //movement
         private void HandlePlayerMovementInput()
         {
             verticalInput = movementInput.y;
@@ -135,8 +139,10 @@ namespace UB
                 moveAmount = 1;
             }
 
+            playerManager.moveAmount = moveAmount;
+
             //pass zero because not locked on
-            playerManager.playerAnimationManager.UpdateAnimatorMovementParameters(0, moveAmount);
+            playerManager.playerAnimationManager.UpdateAnimatorMovementParameters(0, moveAmount, playerManager.isSprinting);
 
             //if locked on pass horizontal 
         }
@@ -146,6 +152,20 @@ namespace UB
             cameraVerticalInput = cameraMovementInput.y;
             cameraHorizontalInput = cameraMovementInput.x;
         }
+
+        private void HandleSprintInput()
+        {
+            if (sprintInput)
+            {
+                //handle sprinting
+                playerManager.HandleSprinting();
+            }
+            else
+            {
+                playerManager.isSprinting = false;
+            }
+        }
+
 
         private void HandleToggleInventoryInput()
         {

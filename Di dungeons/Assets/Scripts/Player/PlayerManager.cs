@@ -15,7 +15,7 @@ namespace UB
 
 
         //components
-        CharacterController characterController;
+        [HideInInspector] public CharacterController characterController;
 
         //Roaming
         [Header("Player Roaming Scripts")]
@@ -29,12 +29,16 @@ namespace UB
         public Interactable focus;
 
         [Header("Roaming Movement")]
-        public float verticalMovement;
-        public float horizontalMovement;
-        public float moveAmount;
+        //settings
+        [SerializeField] float rotationSpeed = 0.25f;
+
+        //values
+        [HideInInspector] public float verticalMovement;
+        [HideInInspector] public float horizontalMovement;
+        [HideInInspector] public float moveAmount;
         private Vector3 moveDirection;
         private Vector3 targetRotationDirection;
-        [SerializeField] float rotationSpeed = 0.25f;
+        
 
 
 
@@ -94,6 +98,9 @@ namespace UB
 
         public void HandleGroundedMovement()
         {
+            if (canMove == false)
+                return;
+
             GetVerticalAndHorizontalInputs();
 
             moveDirection = CameraController.instance.transform.forward * verticalMovement;
@@ -102,20 +109,30 @@ namespace UB
             moveDirection.Normalize();
             moveDirection.y = 0;
 
-            if(inputHandler.moveAmount > 0.5f)
+            if (isSprinting)
             {
-                //move at running speed
-                characterController.Move(moveDirection * (charStats.moveSpeed/8) * Time.fixedDeltaTime);
+                characterController.Move(moveDirection * (charStats.moveSpeed / 16) * Time.fixedDeltaTime);
             }
-            else if(inputHandler.moveAmount <= 0.5f)
+            else
             {
-                //walking speed
-                characterController.Move(moveDirection * (charStats.moveSpeed/12) * Time.fixedDeltaTime);
-            }
+                if (inputHandler.moveAmount > 0.5f)
+                {
+                    //move at running speed
+                    characterController.Move(moveDirection * (charStats.moveSpeed / 8) * Time.fixedDeltaTime);
+                }
+                else if (inputHandler.moveAmount <= 0.5f)
+                {
+                    //walking speed
+                    characterController.Move(moveDirection * (charStats.moveSpeed / 12) * Time.fixedDeltaTime);
+                }
+            }           
         }
 
         private void HandleRoamingRotation()
         {
+            if (canRotate == false)
+                return;
+
             targetRotationDirection = Vector3.zero;
             targetRotationDirection = CameraController.instance.camObj.transform.forward * verticalMovement;
             targetRotationDirection = targetRotationDirection + (CameraController.instance.camObj.transform.right * horizontalMovement);
@@ -132,6 +149,33 @@ namespace UB
             transform.rotation = targetRotation;
         }
 
+        public void HandleSprinting()
+        {
+            if (isPerformingAction)
+            {
+                isSprinting = false;
+            }
+
+            //if out of stamina set sprinting to false
+            //if moving set sprinting to true
+            if(moveAmount >= 0.5f)
+            {
+                isSprinting = true;
+            }
+            else
+            {
+                //if stationary set sprinting to false
+                isSprinting = false;
+            }
+
+            
+        }
+
+
+
+
+
+        //old
         public void StartMove(Vector2 mousePos)
         {
             Ray ray = Camera.main.ScreenPointToRay(mousePos);

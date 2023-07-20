@@ -45,6 +45,13 @@ namespace UB
         [HideInInspector]
         public int currentTarget;
 
+        [Header("Flags")]
+        [HideInInspector] public bool isPerformingAction;
+        [HideInInspector] public bool canRotate;
+        [HideInInspector] public bool canMove;
+        [HideInInspector] public bool applyRootMotion = false;
+        [HideInInspector] public bool isSprinting = false;
+
         protected virtual void Awake()
         {
             //components

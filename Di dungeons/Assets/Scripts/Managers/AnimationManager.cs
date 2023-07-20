@@ -24,10 +24,28 @@ namespace UB
 
         }
 
-        public void UpdateAnimatorMovementParameters(float horizontalValue, float verticalValue)
+        public void UpdateAnimatorMovementParameters(float horizontalValue, float verticalValue, bool isSprinting)
         {
+            float horizontal = horizontalValue;
+            float vertical = verticalValue;
+
+            if (isSprinting)
+            {
+                vertical = 2;
+            }
+
             characterManager.animator.SetFloat("Horizontal", horizontalValue, 0.1f, Time.fixedDeltaTime);
-            characterManager.animator.SetFloat("Vertical", verticalValue, 0.1f, Time.fixedDeltaTime);
+            characterManager.animator.SetFloat("Vertical", vertical, 0.1f, Time.fixedDeltaTime);
+        }
+
+        public virtual void PlayTargetActionAnimation(string targetAnimation, bool isPerformingAction, bool applyRootMotion = true, bool canRotate = false, bool canMove = false)
+        {
+            characterManager.animator.applyRootMotion = applyRootMotion;
+            characterManager.animator.CrossFade(targetAnimation, 0.2f);
+
+            characterManager.isPerformingAction = isPerformingAction;
+            characterManager.canRotate = canRotate;
+            characterManager.canMove = canMove;
         }
     }
 }

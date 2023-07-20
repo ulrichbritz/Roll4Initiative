@@ -116,6 +116,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""98c497e0-f8d8-48de-a24c-de110523a1e4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -138,6 +147,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ToggleEquipment"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0d851451-ea66-4d0c-a778-bccfd245330e"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -181,6 +201,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_PlayerActions = asset.FindActionMap("Player Actions", throwIfNotFound: true);
         m_PlayerActions_ToggleInventory = m_PlayerActions.FindAction("ToggleInventory", throwIfNotFound: true);
         m_PlayerActions_ToggleEquipment = m_PlayerActions.FindAction("ToggleEquipment", throwIfNotFound: true);
+        m_PlayerActions_Sprint = m_PlayerActions.FindAction("Sprint", throwIfNotFound: true);
         // Player Camera
         m_PlayerCamera = asset.FindActionMap("Player Camera", throwIfNotFound: true);
         m_PlayerCamera_Movement = m_PlayerCamera.FindAction("Movement", throwIfNotFound: true);
@@ -293,12 +314,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IPlayerActionsActions> m_PlayerActionsActionsCallbackInterfaces = new List<IPlayerActionsActions>();
     private readonly InputAction m_PlayerActions_ToggleInventory;
     private readonly InputAction m_PlayerActions_ToggleEquipment;
+    private readonly InputAction m_PlayerActions_Sprint;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActionsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @ToggleInventory => m_Wrapper.m_PlayerActions_ToggleInventory;
         public InputAction @ToggleEquipment => m_Wrapper.m_PlayerActions_ToggleEquipment;
+        public InputAction @Sprint => m_Wrapper.m_PlayerActions_Sprint;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -314,6 +337,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ToggleEquipment.started += instance.OnToggleEquipment;
             @ToggleEquipment.performed += instance.OnToggleEquipment;
             @ToggleEquipment.canceled += instance.OnToggleEquipment;
+            @Sprint.started += instance.OnSprint;
+            @Sprint.performed += instance.OnSprint;
+            @Sprint.canceled += instance.OnSprint;
         }
 
         private void UnregisterCallbacks(IPlayerActionsActions instance)
@@ -324,6 +350,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ToggleEquipment.started -= instance.OnToggleEquipment;
             @ToggleEquipment.performed -= instance.OnToggleEquipment;
             @ToggleEquipment.canceled -= instance.OnToggleEquipment;
+            @Sprint.started -= instance.OnSprint;
+            @Sprint.performed -= instance.OnSprint;
+            @Sprint.canceled -= instance.OnSprint;
         }
 
         public void RemoveCallbacks(IPlayerActionsActions instance)
@@ -395,6 +424,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void OnToggleInventory(InputAction.CallbackContext context);
         void OnToggleEquipment(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
     }
     public interface IPlayerCameraActions
     {
