@@ -30,8 +30,9 @@ namespace UB
 
         [Header("Action Inputs")]
         bool sprintInput = false;
+        bool jumpInput = false;
         bool toggleInventoryInput = false;
-        bool toggleEquipmentInput = false;      
+        bool toggleEquipmentInput = false;     
 
         private void Awake()
         {
@@ -83,6 +84,7 @@ namespace UB
                 //actions
                 playerControls.PlayerActions.Sprint.performed += inputAction => sprintInput = true;
                 playerControls.PlayerActions.Sprint.canceled += inputAction => sprintInput = false;
+                playerControls.PlayerActions.Jump.performed += inputAction => jumpInput = true;
                 playerControls.PlayerActions.ToggleInventory.performed += inputAction => toggleInventoryInput = true;
                 playerControls.PlayerActions.ToggleEquipment.performed += inputAction => toggleEquipmentInput = true;
             }
@@ -117,6 +119,7 @@ namespace UB
 
             //actions
             HandleSprintInput();
+            HandleJumpInput();
             HandleToggleInventoryInput();
             HandleToggleEquipmentInput();
         }
@@ -166,6 +169,17 @@ namespace UB
             }
         }
 
+        private void HandleJumpInput()
+        {
+            if (jumpInput)
+            {
+                jumpInput = false;
+
+                //if ui or battle return
+
+                playerManager.AttemptToPerformJump();
+            }
+        }
 
         private void HandleToggleInventoryInput()
         {

@@ -162,6 +162,7 @@ namespace UB
             }
 
             //if out of stamina set sprinting to false
+
             //if moving set sprinting to true
             if(moveAmount >= 0.5f)
             {
@@ -176,7 +177,33 @@ namespace UB
             
         }
 
+        public void AttemptToPerformJump()
+        {
+            if (isPerformingAction)
+                return;
 
+            //stamina check
+
+            if (isJumping)
+                return;
+
+            if (isGrounded)
+                return;
+
+            //if using 2 handed use 2 handed jump anim
+
+            //if using one handed weapon use 2 handed jump anim
+            animationManager.PlayTargetActionAnimation("Jump_Start_01", false);
+
+            isJumping = true;
+
+            //minus stamina cost
+        }
+
+        public void ApplyjumpingVelocity()
+        {
+            //apply an upward velocity depending on forces e.g gravity
+        }
 
 
 

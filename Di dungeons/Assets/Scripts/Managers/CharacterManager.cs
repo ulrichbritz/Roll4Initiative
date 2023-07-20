@@ -51,6 +51,12 @@ namespace UB
         [HideInInspector] public bool canMove;
         [HideInInspector] public bool applyRootMotion = false;
         [HideInInspector] public bool isSprinting = false;
+        [HideInInspector] public bool isGrounded = false;
+        [HideInInspector] public bool isJumping = false;
+
+        [Header("Ground Check, Falling and Jumping")]
+        [SerializeField] protected Vector3 yVelocity; //force that pulls our character up or down (jump or fall)
+        [SerializeField] protected float groundedVelocity = -20f; //force at which char is sticking to ground
 
         protected virtual void Awake()
         {
