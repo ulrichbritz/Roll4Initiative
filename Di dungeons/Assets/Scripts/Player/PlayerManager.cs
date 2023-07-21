@@ -25,6 +25,7 @@ namespace UB
         [SerializeField] LayerMask movementMask;
 
         [Header("Interactable")]
+        [SerializeField] float interactRange = 2f;
         [SerializeField] LayerMask interactableLayers;
         [HideInInspector] public Interactable interactableObject = null;
 
@@ -91,7 +92,7 @@ namespace UB
         {
             //handle movement
             HandleRoamingMovement();
-            CheckForInteractable();
+            //CheckForInteractable();
         }
 
         public void HandleRoamingMovement()
@@ -263,24 +264,12 @@ namespace UB
         //interaction
         public void CheckForInteractable()
         {
-            RaycastHit hit;
-            
-            if(Physics.SphereCast(transform.position, 0.3f, transform.forward, out hit, 1f, interactableLayers))
+            Collider[] colliders = Physics.OverlapSphere(transform.position, interactRange);
+            foreach (Collider collider in colliders)
             {
-                if(hit.collider != null)
+                if(collider.TryGetComponent(out Interactable interactable))
                 {
-                     interactableObject = hit.collider.GetComponent<Interactable>();
-
-                    if(interactableObject != null)
-                    {
-                        string interactableText = interactableObject.interactableText;
-                        //set ui text to interactable text
-
-                    }
-                }
-                else
-                {
-                    interactableObject = null;
+                    interactable.Interact(transform);
                 }
             }
         }
@@ -352,6 +341,10 @@ namespace UB
             base.StopBattle();
 
             agent.enabled = false;
+        }
+
+        private void OnDrawGizmos()
+        {
         }
     }
 }

@@ -188,12 +188,13 @@ namespace UB
         {
             if (interactInput)
             {
-                interactInput = false;
+              //  interactInput = false;
 
                 if (playerManager.interactableObject != null)
                 {
-                    playerManager.InteractWithInteractable();
-                }       
+                   // playerManager.InteractWithInteractable();
+                }
+                playerManager.CheckForInteractable();
             }
         }
 
