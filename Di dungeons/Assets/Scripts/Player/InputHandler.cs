@@ -110,18 +110,18 @@ namespace UB
 
         private void HandleAllRoamingInputs()
         {
-            if (!playerManager.isInBattle)
-            {
-                //movement
-                HandlePlayerMovementInput();
-                HandleCameraMovementInput();
+            if (playerManager.isInBattle)
+                return;
 
-                //actions
-                HandleSprintInput();
-                HandleJumpInput();
-                HandleToggleInventoryInput();
-                HandleToggleEquipmentInput();
-            }     
+            //movement
+            HandlePlayerMovementInput();
+            HandleCameraMovementInput();
+
+            //actions
+            HandleSprintInput();
+            HandleJumpInput();
+            HandleToggleInventoryInput();
+            HandleToggleEquipmentInput();
         }
 
         //movement
