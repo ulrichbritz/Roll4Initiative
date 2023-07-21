@@ -6000,11 +6000,11 @@ MonoBehaviour:
   upAndDownLookAngle: 0
   battleCameraSystemTransform: {x: 0, y: 0, z: 0}
   battleCameraPivotTransform: {x: 0, y: 8, z: -5}
-  battleCamTransform: {x: 0, y: 0, z: 0}
+  battleCamTransform: {x: 0, y: 3, z: -6}
   actionCamViewAngle: 30
   moveSpeed: 40
   manualMoveSpeed: 10
-  battleRotateSpeed: 100
+  battleRotateSpeed: 25
   offset: {x: 0, y: 0, z: 0}
   smoothTime: 0
   roamingRotateSpeed: 100
