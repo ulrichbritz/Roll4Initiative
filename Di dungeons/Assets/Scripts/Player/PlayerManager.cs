@@ -25,8 +25,8 @@ namespace UB
         [SerializeField] LayerMask movementMask;
 
         [Header("Interactable")]
-        Transform target;
-        public Interactable focus;
+        [SerializeField] LayerMask interactableLayers;
+        [HideInInspector] public Interactable interactableObject = null;
 
         [Header("Roaming Movement")]
         //settings
@@ -91,6 +91,7 @@ namespace UB
         {
             //handle movement
             HandleRoamingMovement();
+            CheckForInteractable();
         }
 
         public void HandleRoamingMovement()
@@ -259,66 +260,41 @@ namespace UB
 
 
 
-        //old
-        public void StartMove(Vector2 mousePos)
+        //interaction
+        public void CheckForInteractable()
         {
-            Ray ray = Camera.main.ScreenPointToRay(mousePos);
             RaycastHit hit;
-            if(Physics.Raycast(ray, out hit, float.MaxValue, movementMask))
+            
+            if(Physics.SphereCast(transform.position, 0.3f, transform.forward, out hit, 1f, interactableLayers))
             {
-                agent.SetDestination(hit.point);
-            }
-        }
-
-        public void Followtarget(Interactable newTarget)
-        {
-            agent.stoppingDistance = newTarget.raduis;
-            agent.updateRotation = false;
-
-            target = newTarget.interactionPoint;
-        }
-
-        public void StopFollowingTarget()
-        {
-            agent.stoppingDistance = 0f;
-            agent.updateRotation = true;
-
-            target = null;
-        }
-
-        public void SetFocus(Interactable newFocus)
-        {
-            if(newFocus != focus)
-            {
-                if(focus != null)
+                if(hit.collider != null)
                 {
-                    focus.OnDefocused();
-                }
-                    
+                     interactableObject = hit.collider.GetComponent<Interactable>();
 
-                focus = newFocus;
-                Followtarget(focus);
+                    if(interactableObject != null)
+                    {
+                        string interactableText = interactableObject.interactableText;
+                        //set ui text to interactable text
+
+                    }
+                }
+                else
+                {
+                    interactableObject = null;
+                }
             }
-         
-            newFocus.OnFocused(transform);         
         }
 
-        public void RemoveFocus()
+        public void InteractWithInteractable()
         {
-            CameraController.instance.SetCameraState(CameraState.CameraRoamingState);
-
-            if (focus != null)
-                focus.OnDefocused();
-
-            focus = null;
-            StopFollowingTarget();
+            interactableObject.Interact();
         }
 
         void FaceTarget()
         {
-            Vector3 direction = (target.position - transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+           // Vector3 direction = (target.position - transform.position).normalized;
+           // Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
+           // transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
         }
 
         #endregion

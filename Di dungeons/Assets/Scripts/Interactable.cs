@@ -6,6 +6,7 @@ namespace UB
     {
         public float raduis = 3f;
         public Transform interactionPoint;
+        public string interactableText;
 
         bool isFocus = false;
         Transform player;
@@ -28,32 +29,11 @@ namespace UB
 
         private void Update()
         {
-            if (isFocus && !hasInteracted)
-            {
-                float distance = Vector3.Distance(player.position, interactionPoint.position);
-                if(distance <= raduis)
-                {
-                    Interact(player);
-                    hasInteracted = true;
-                }
-            }
+            
         }
 
 
-        //old
-        public void OnFocused (Transform playerTransform)
-        {
-            isFocus = true;
-            player = playerTransform;
-            hasInteracted = false;
-        }
-
-        public void OnDefocused()
-        {
-            isFocus = false;
-            player = null;
-            hasInteracted = false;
-        }
+        
 
         private void OnDrawGizmosSelected()
         {

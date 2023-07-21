@@ -5055,6 +5055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raduis: 0.5
   interactionPoint: {fileID: 2078769580}
+  interactableText: 
 --- !u!65 &715919134
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9002,6 +9003,25 @@ Transform:
   m_Father: {fileID: 1604503878}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1684129378 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7181223296138483386, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+    type: 3}
+  m_PrefabInstance: {fileID: 7181223295260427170}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &1684129388
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684129378}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1703591713
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11368,6 +11388,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4236452364222694720, guid: c7938fb27c38a7b4eae78b3573bf5fec,
+        type: 3}
+      propertyPath: interactableLayers.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 5186021459229726309, guid: c7938fb27c38a7b4eae78b3573bf5fec,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -11811,6 +11836,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7181223296138483328, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+        type: 3}
+      propertyPath: raduis
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181223296138483328, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+        type: 3}
+      propertyPath: interactableText
+      value: Interact
+      objectReference: {fileID: 0}
     - target: {fileID: 7181223296138483329, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
         type: 3}
       propertyPath: gravityForce
@@ -11880,6 +11915,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NPC
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181223296138483386, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7181223296138483390, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
         type: 3}

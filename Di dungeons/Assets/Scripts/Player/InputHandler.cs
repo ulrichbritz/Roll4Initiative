@@ -31,6 +31,7 @@ namespace UB
         [Header("Action Inputs")]
         bool sprintInput = false;
         bool jumpInput = false;
+        bool interactInput = false;
         bool toggleInventoryInput = false;
         bool toggleEquipmentInput = false;     
 
@@ -84,6 +85,7 @@ namespace UB
                 //actions
                 playerControls.PlayerActions.Sprint.performed += inputAction => sprintInput = true;
                 playerControls.PlayerActions.Sprint.canceled += inputAction => sprintInput = false;
+                playerControls.PlayerActions.Interact.performed += inputAction => interactInput = true;
                 playerControls.PlayerActions.Jump.performed += inputAction => jumpInput = true;
                 playerControls.PlayerActions.ToggleInventory.performed += inputAction => toggleInventoryInput = true;
                 playerControls.PlayerActions.ToggleEquipment.performed += inputAction => toggleEquipmentInput = true;
@@ -120,6 +122,7 @@ namespace UB
             //actions
             HandleSprintInput();
             HandleJumpInput();
+            HandleInteractInput();
             HandleToggleInventoryInput();
             HandleToggleEquipmentInput();
         }
@@ -171,7 +174,6 @@ namespace UB
 
         private void HandleJumpInput()
         {
-
             if (jumpInput)
             {
                 jumpInput = false;
@@ -179,6 +181,19 @@ namespace UB
                 //if ui or battle return
 
                 playerManager.AttemptToPerformJump();
+            }
+        }
+
+        private void HandleInteractInput()
+        {
+            if (interactInput)
+            {
+                interactInput = false;
+
+                if (playerManager.interactableObject != null)
+                {
+                    playerManager.InteractWithInteractable();
+                }       
             }
         }
 
@@ -190,9 +205,6 @@ namespace UB
 
                 if (playerManager.isInBattle)
                     return;
-
-                //maybe remove this
-                playerManager.RemoveFocus();
 
                 UIManager.instance.ToggleInventory();
             }      
@@ -206,9 +218,6 @@ namespace UB
 
                 if (playerManager.isInBattle)
                     return;
-
-                //maybe remove this
-                playerManager.RemoveFocus();
 
                 UIManager.instance.ToggleEquipment();
             }
