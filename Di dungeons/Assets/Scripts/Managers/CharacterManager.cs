@@ -125,7 +125,8 @@ namespace UB
             }
 
             //always a down force 
-            characterController.Move(yVelocity * Time.deltaTime);
+            if(!isInBattle)                         //fix because we want the enemy to fall down holes if blown back
+                characterController.Move(yVelocity * Time.deltaTime);
         }
 
         public void HandleBattleUpdate()
@@ -178,6 +179,7 @@ namespace UB
         public virtual void StartBattle()
         {
             isInBattle = true;
+            animationManager.SetInBattle(isInBattle);
             moveTarget = transform.position;
             animationManager.UpdateAnimatorMovementParameters(0, 0, false);
             RollForInitiative();
@@ -186,6 +188,7 @@ namespace UB
         public virtual void StopBattle()
         {
             isInBattle = false;
+            animationManager.SetInBattle(isInBattle);
             MoveGrid.instance.HideMovePoints();
             PlayerActionMenu.instance.HideActionCountUI();
             PlayerActionMenu.instance.HideMenus();

@@ -344,6 +344,7 @@ namespace UB
             isInBattle = true;
             agent.enabled = true;
             animationManager.UpdateAnimatorMovementParameters(0, 0, false);
+            animationManager.SetInBattle(isInBattle);
 
             //change camera movetarget
             CameraController.instance.SetMoveTarget(transform.position);

@@ -24,6 +24,11 @@ namespace UB
 
         }
 
+        public void SetInBattle(bool isInBattle)
+        {
+            characterManager.animator.SetBool("isInBattle", isInBattle);
+        }
+
         public void UpdateAnimatorMovementParameters(float horizontalValue, float verticalValue, bool isSprinting)
         {
             float horizontal = horizontalValue;

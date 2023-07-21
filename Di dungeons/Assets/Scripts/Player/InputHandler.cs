@@ -77,7 +77,7 @@ namespace UB
                 playerControls = new PlayerControls();
 
                 //movement
-                playerControls.PlayerMovement.Movement.performed += inputAction => movementInput = inputAction.ReadValue<Vector2>();
+                playerControls.PlayerMovement.Movement.performed += inputAction => movementInput = inputAction.ReadValue<Vector2>();               
                 playerControls.PlayerCamera.Movement.performed += inputAction => cameraMovementInput = inputAction.ReadValue<Vector2>();
                 //playerControls.PlayerMovement.Movement.performed += inputAction => moveInput = true;
 

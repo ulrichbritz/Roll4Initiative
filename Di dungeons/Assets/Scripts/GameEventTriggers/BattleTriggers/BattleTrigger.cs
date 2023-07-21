@@ -18,21 +18,6 @@ namespace UB
 
         }
 
-
-        /*
-
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                DisableCollider();
-
-                CharacterController playerController = collision.gameObject.GetComponent<CharacterController>();
-                GameManager.instance.StartBattle(enemiesInBattle, playerController, this);
-            }
-        }
-        */
-
         public void DisableCollider()
         {
             triggerCollider.enabled = false;
