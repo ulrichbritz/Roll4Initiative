@@ -5998,6 +5998,9 @@ MonoBehaviour:
     m_Bits: 192
   leftAndRightLookAngle: 0
   upAndDownLookAngle: 0
+  battleCameraSystemTransform: {x: 0, y: 0, z: 0}
+  battleCameraPivotTransform: {x: 0, y: 8, z: -5}
+  battleCamTransform: {x: 0, y: 0, z: 0}
   actionCamViewAngle: 30
   moveSpeed: 40
   manualMoveSpeed: 10

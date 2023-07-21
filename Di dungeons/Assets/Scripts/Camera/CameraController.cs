@@ -138,6 +138,14 @@ namespace UB
                 cameraZPos = camObj.transform.localPosition.z;
                 print("changed camera to roaming state");
             }
+            else if(state == CameraState.CameraBattleState)
+            {
+                cameraSystemObj.transform.position = battleCameraSystemTransform;
+                cameraPivotObj.transform.position = battleCameraPivotTransform;
+                camObj.transform.position = battleCamTransform;
+                cameraPivotObj.rotation = Quaternion.Euler(new Vector3(40, 0,0));
+                print("changed camera to battle state");
+            }
         }
 
         private void HandleCameraCollisions()
@@ -244,7 +252,7 @@ namespace UB
 
             if (isActionView == false)
             {
-                targetRotation = currentAngle + 45f;
+                targetRotation = currentAngle;
             }
 
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, targetRotation, 0f), battleRotateSpeed * Time.deltaTime);
@@ -264,6 +272,7 @@ namespace UB
 
         public void SetActionView()
         {
+            /*
             var activeChar = GameManager.instance.activeCharacter;
 
             moveTarget = activeChar.transform.position;
@@ -274,6 +283,7 @@ namespace UB
             camObj.transform.localPosition = actionCamPos;
 
             isActionView = true;
+            */
         }
     }
 
