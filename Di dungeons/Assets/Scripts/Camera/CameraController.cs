@@ -19,7 +19,7 @@ namespace UB
         public Transform cameraPivotObj;
         public Transform camObj;
 
-        [Header("Roaming CameraSettings")]
+        [Header("Roaming Camera Settings")]
         //roaming
         [SerializeField] private float cameraSmoothSpeed = 1;
         [SerializeField] private float upAndDownRotationSpeed = 220f;
@@ -41,6 +41,11 @@ namespace UB
         [SerializeField] float upAndDownLookAngle;
         private float cameraZPos;
         private float targetCameraZPos;
+
+        [Header("Battle Camera Settings")]
+        [SerializeField] Vector3 battleCameraSystemTransform;
+        [SerializeField] Vector3 battleCameraPivotTransform;
+        [SerializeField] Vector3 battleCamTransform;
 
 
         //old
@@ -115,10 +120,6 @@ namespace UB
             else if(state == CameraState.CameraBattleState)
             {
                 HandleBattleUpdate();
-            }
-            else if(state == CameraState.CameraInteractionState)
-            {
-                HandleInteractionUpdate();
             }
 
             HandleCameraCollisions();
@@ -251,10 +252,6 @@ namespace UB
             camObj.localRotation = Quaternion.Slerp(camObj.localRotation, Quaternion.Euler(targetCamViewAngle, 0f, 0f), battleRotateSpeed * Time.deltaTime);
         }
 
-        private void HandleInteractionUpdate()
-        {
-            //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, PlayerController.instance.transform.eulerAngles.y, 0f), roamingRotateSpeed * Time.deltaTime);
-        }
 
         public void SetMoveTarget(Vector3 newTarget)
         {
@@ -280,6 +277,6 @@ namespace UB
         }
     }
 
-    public enum CameraState { CameraRoamingState, CameraBattleState, CameraInteractionState}
+    public enum CameraState { CameraRoamingState, CameraBattleState}
 
 }

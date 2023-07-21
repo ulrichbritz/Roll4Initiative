@@ -16,7 +16,6 @@ namespace UB
         {
             Debug.Log("Interacted with " + gameObject.name);
 
-            CameraController.instance.SetCameraState(CameraState.CameraInteractionState);
         }
 
         private void Awake()
@@ -40,6 +39,8 @@ namespace UB
             }
         }
 
+
+        //old
         public void OnFocused (Transform playerTransform)
         {
             isFocus = true;
