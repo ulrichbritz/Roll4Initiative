@@ -81,7 +81,7 @@ namespace UB
                 aiBrain = GetComponent<AIBrain>();
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             moveTarget = transform.position;
 
@@ -178,6 +178,7 @@ namespace UB
         public virtual void StartBattle()
         {
             isInBattle = true;
+            moveTarget = transform.position;
             animationManager.UpdateAnimatorMovementParameters(0, 0, false);
             RollForInitiative();
         }

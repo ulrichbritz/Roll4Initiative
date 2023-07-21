@@ -65,8 +65,10 @@ namespace UB
 
         }
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+
             agent.enabled = false;
         }
 
