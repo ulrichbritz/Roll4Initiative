@@ -143,6 +143,7 @@ namespace UB
                         transform.position = moveTarget;
                         agent.SetDestination(transform.position);
                         isMoving = false;
+                        animationManager.SetMovingBool(isMoving);
                         animationManager.UpdateAnimatorMovementParameters(0, 0, false);
 
                         GameManager.instance.FinishedMovement(moveRangeToSpend);
@@ -168,6 +169,7 @@ namespace UB
 
             agent.SetDestination(moveTarget);
             isMoving = true;
+            animationManager.SetMovingBool(isMoving);
             animationManager.UpdateAnimatorMovementParameters(0, 1, false);
         }
 

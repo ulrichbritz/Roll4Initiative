@@ -29,6 +29,11 @@ namespace UB
             characterManager.animator.SetBool("isInBattle", isInBattle);
         }
 
+        public void SetMovingBool(bool isMoving)
+        {
+            characterManager.animator.SetBool("isMoving", isMoving);
+        }
+
         public void UpdateAnimatorMovementParameters(float horizontalValue, float verticalValue, bool isSprinting)
         {
             float horizontal = horizontalValue;
