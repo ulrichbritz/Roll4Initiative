@@ -1167,7 +1167,7 @@ Animator:
   m_GameObject: {fileID: 7181223295660004520}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: aa69cd5068b45d74a94102760afd8928, type: 3}
-  m_Controller: {fileID: 9100000, guid: 5f1aae2400abda049a1b1a85cd25cd04, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3c37240ec28287d4c93dabc9438165cf, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2221,6 +2221,7 @@ MonoBehaviour:
   moveSpeed: 4
   alertRange: 20
   MaxActionPoints: 2
+  jumpHeight: 0
   strength: 0
   dexterity: 0
   intelligence: 0
@@ -2284,6 +2285,7 @@ MonoBehaviour:
   agent: {fileID: 0}
   hitPoint: {fileID: 7181223296734620384}
   animator: {fileID: 0}
+  characterController: {fileID: 0}
   moveTarget: {x: 0, y: 0, z: 0}
   Initiative: 0
   allTargets: []
@@ -2295,6 +2297,16 @@ MonoBehaviour:
   canMove: 0
   applyRootMotion: 0
   isSprinting: 0
+  isGrounded: 0
+  isJumping: 0
+  gravityForce: -5.5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 192
+  groundCheckSphereRaduis: 0.3
+  yVelocity: {x: 0, y: 0, z: 0}
+  groundedYVelocity: -20
+  fallStartYVelocity: -5
 --- !u!143 &182400126
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2306,13 +2318,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 1.9
   m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 1.1, z: 0}
 --- !u!1 &7181223296180181095
 GameObject:
   m_ObjectHideFlags: 0

@@ -43,6 +43,9 @@ namespace UB
 
         public int MaxActionPoints = 3;
 
+        [SerializeField] float jumpHeight = 2f;
+        [HideInInspector] public float JumpHeight => jumpHeight; 
+
 
         [Header("Stats")]
         [SerializeField] int strength;

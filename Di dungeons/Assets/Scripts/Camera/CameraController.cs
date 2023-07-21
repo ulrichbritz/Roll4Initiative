@@ -177,7 +177,7 @@ namespace UB
 
         private void HandleRoamingFollowPlayer()
         {
-            Vector3 targetCameraPos = Vector3.SmoothDamp(transform.position, playerManager.transform.position, ref cameraVelocity, cameraSmoothSpeed * Time.fixedDeltaTime);
+            Vector3 targetCameraPos = Vector3.SmoothDamp(transform.position, playerManager.transform.position, ref cameraVelocity, cameraSmoothSpeed * Time.deltaTime);
             transform.position = targetCameraPos;
         }
 
@@ -186,8 +186,8 @@ namespace UB
             //locked on rotations
 
             //normal rotations
-            leftAndRightLookAngle += (InputHandler.instance.cameraHorizontalInput * leftAndRightRotationSpeed) * Time.fixedDeltaTime;
-            upAndDownLookAngle -= (InputHandler.instance.cameraVerticalInput * upAndDownRotationSpeed) * Time.fixedDeltaTime;
+            leftAndRightLookAngle += (InputHandler.instance.cameraHorizontalInput * leftAndRightRotationSpeed) * Time.deltaTime;
+            upAndDownLookAngle -= (InputHandler.instance.cameraVerticalInput * upAndDownRotationSpeed) * Time.deltaTime;
             upAndDownLookAngle = Mathf.Clamp(upAndDownLookAngle, minPivot, maxPivot);
 
 

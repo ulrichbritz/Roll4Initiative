@@ -4,21 +4,17 @@ using UnityEngine;
 
 namespace UB
 {
-    public class ResetActionsFlag : StateMachineBehaviour
+    public class ResetIsJumping : StateMachineBehaviour
     {
         CharacterManager characterManager;
-        // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+        //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if(characterManager == null)
+            if (characterManager == null)
             {
                 characterManager = animator.GetComponentInParent<CharacterManager>();
             }
 
-            characterManager.isPerformingAction = false;
-            characterManager.applyRootMotion = false;
-            characterManager.canRotate = true;
-            characterManager.canMove = true;
             characterManager.isJumping = false;
         }
 

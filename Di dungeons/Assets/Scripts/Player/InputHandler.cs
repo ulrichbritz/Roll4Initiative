@@ -105,23 +105,23 @@ namespace UB
 
         private void Update()
         {
-            if (playerManager.isInBattle)
-                return;
-
             HandleAllRoamingInputs();
         }
 
         private void HandleAllRoamingInputs()
         {
-            //movement
-            HandlePlayerMovementInput();
-            HandleCameraMovementInput();
+            if (!playerManager.isInBattle)
+            {
+                //movement
+                HandlePlayerMovementInput();
+                HandleCameraMovementInput();
 
-            //actions
-            HandleSprintInput();
-            HandleJumpInput();
-            HandleToggleInventoryInput();
-            HandleToggleEquipmentInput();
+                //actions
+                HandleSprintInput();
+                HandleJumpInput();
+                HandleToggleInventoryInput();
+                HandleToggleEquipmentInput();
+            }     
         }
 
         //movement
@@ -171,6 +171,7 @@ namespace UB
 
         private void HandleJumpInput()
         {
+
             if (jumpInput)
             {
                 jumpInput = false;

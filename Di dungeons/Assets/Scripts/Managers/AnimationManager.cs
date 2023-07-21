@@ -34,8 +34,8 @@ namespace UB
                 vertical = 2;
             }
 
-            characterManager.animator.SetFloat("Horizontal", horizontalValue, 0.1f, Time.fixedDeltaTime);
-            characterManager.animator.SetFloat("Vertical", vertical, 0.1f, Time.fixedDeltaTime);
+            characterManager.animator.SetFloat("Horizontal", horizontalValue, 0.1f, Time.deltaTime);
+            characterManager.animator.SetFloat("Vertical", vertical, 0.1f, Time.deltaTime);
         }
 
         public virtual void PlayTargetActionAnimation(string targetAnimation, bool isPerformingAction, bool applyRootMotion = true, bool canRotate = false, bool canMove = false)

@@ -38,7 +38,10 @@ namespace UB
         [HideInInspector] public float moveAmount;
         private Vector3 moveDirection;
         private Vector3 targetRotationDirection;
-        
+
+        [Header("Jump")]
+        private Vector3 jumpDirection;
+
 
 
 
@@ -91,7 +94,9 @@ namespace UB
         public void HandleRoamingMovement()
         {
             HandleGroundedMovement();
+            HandleJumpingMovement();
             HandleRoamingRotation();
+            HandleFreeFallMovement();
         }
 
         private void GetVerticalAndHorizontalInputs()
@@ -117,21 +122,42 @@ namespace UB
 
             if (isSprinting)
             {
-                characterController.Move(moveDirection * (charStats.moveSpeed/2) * Time.fixedDeltaTime);
+                characterController.Move(moveDirection * (charStats.moveSpeed * 1.5f) * Time.deltaTime);
             }
             else
             {
                 if (inputHandler.moveAmount > 0.5f)
                 {
                     //move at running speed
-                    characterController.Move(moveDirection * (charStats.moveSpeed/3) * Time.fixedDeltaTime);
+                    characterController.Move(moveDirection * (charStats.moveSpeed) * Time.deltaTime);
                 }
                 else if (inputHandler.moveAmount <= 0.5f)
                 {
                     //walking speed
-                    characterController.Move(moveDirection * (charStats.moveSpeed / 4) * Time.fixedDeltaTime);
+                    characterController.Move(moveDirection * (charStats.moveSpeed / 2) * Time.deltaTime);
                 }
             }           
+        }
+
+        private void HandleJumpingMovement()
+        {
+            if (isJumping)
+            {
+                characterController.Move(jumpDirection * (charStats.moveSpeed) * Time.deltaTime);
+            }
+        }
+
+        private void HandleFreeFallMovement()
+        {
+            if (!isGrounded)
+            {
+                Vector3 freeFallDirection;
+                freeFallDirection = CameraController.instance.transform.forward * inputHandler.VerticalInput;
+                freeFallDirection += CameraController.instance.transform.right * inputHandler.HorizontalInput;
+                freeFallDirection.y = 0;
+
+                characterController.Move(freeFallDirection * (charStats.moveSpeed / 2) * Time.deltaTime);
+            }
         }
 
         private void HandleRoamingRotation()
@@ -151,7 +177,7 @@ namespace UB
             }
 
             Quaternion newRotation = Quaternion.LookRotation(targetRotationDirection);
-            Quaternion targetRotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed * Time.fixedDeltaTime);
+            Quaternion targetRotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
             transform.rotation = targetRotation;
         }
 
@@ -199,11 +225,34 @@ namespace UB
             isJumping = true;
 
             //minus stamina cost
+
+            jumpDirection = CameraController.instance.transform.forward * inputHandler.VerticalInput;
+            jumpDirection += CameraController.instance.transform.right * inputHandler.HorizontalInput;
+
+            jumpDirection.y = 0;
+
+            if(jumpDirection != Vector3.zero)
+            {
+                //jump distance based on speed
+                if (isSprinting)
+                {
+                    jumpDirection *= 1;
+                }
+                else if (inputHandler.moveAmount > 0.5f)
+                {
+                    jumpDirection *= 0.5f;
+                }
+                else if (inputHandler.moveAmount <= 0.5)
+                {
+                    jumpDirection *= 0.25f;
+                }
+            }
         }
 
         public void ApplyjumpingVelocity()
         {
             //apply an upward velocity depending on forces e.g gravity
+            yVelocity.y = Mathf.Sqrt(characterStats.JumpHeight * -2 * gravityForce);
         }
 
 
@@ -292,6 +341,7 @@ namespace UB
         {
             isInBattle = true;
             agent.enabled = true;
+            animationManager.UpdateAnimatorMovementParameters(0, 0, false);
 
             //change camera movetarget
             CameraController.instance.SetMoveTarget(transform.position);
@@ -299,9 +349,6 @@ namespace UB
             //stop moving
             agent.SetDestination(transform.position);
             moveTarget = transform.position;
-            animationManager.Anim.SetBool("isMoving", false);
-
-            isInBattle = true;
 
             yield return new WaitForSeconds(3f);
 
@@ -310,6 +357,15 @@ namespace UB
 
             GameManager.instance.StartBattle(battleTrigger.EnemiesInBattle, this, battleTrigger);
 
+        }
+
+        public override void StartBattle()
+        {
+            base.StartBattle();
+
+            agent.enabled = true;
+            moveAmount = 0;
+            animationManager.UpdateAnimatorMovementParameters(0, 0, false);
         }
 
         public override void StopBattle()

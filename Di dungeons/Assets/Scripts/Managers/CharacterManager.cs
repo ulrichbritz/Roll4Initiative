@@ -53,10 +53,10 @@ namespace UB
         [HideInInspector] public bool applyRootMotion = false;
         [HideInInspector] public bool isSprinting = false;
          public bool isGrounded = false;
-        [HideInInspector] public bool isJumping = false;
+         public bool isJumping = false;
 
         [Header("Ground Check, Falling and Jumping")]
-        [SerializeField] float gravityForce = -5.55f;
+        [SerializeField] protected float gravityForce = -5.55f;
         [SerializeField] LayerMask groundLayer;
         [SerializeField] float groundCheckSphereRaduis = 0.5f;
         [SerializeField] protected Vector3 yVelocity; //force that pulls our character up or down (jump or fall)
@@ -118,14 +118,14 @@ namespace UB
                     yVelocity.y = fallStartYVelocity;
                 }
 
-                inAirTimer += Time.fixedDeltaTime;
+                inAirTimer += Time.deltaTime;
                 animator.SetFloat("inAirTimer", inAirTimer);
 
-                yVelocity.y += gravityForce * Time.fixedDeltaTime;
+                yVelocity.y += gravityForce * Time.deltaTime;
             }
 
             //always a down force 
-            characterController.Move(yVelocity * Time.fixedDeltaTime);
+            characterController.Move(yVelocity * Time.deltaTime);
         }
 
         public void HandleBattleUpdate()
@@ -142,7 +142,7 @@ namespace UB
                         transform.position = moveTarget;
                         agent.SetDestination(transform.position);
                         isMoving = false;
-                        animationManager.Anim.SetBool("isMoving", isMoving);
+                        animationManager.UpdateAnimatorMovementParameters(0, 0, false);
 
                         GameManager.instance.FinishedMovement(moveRangeToSpend);
                         moveRangeToSpend = 0;
@@ -167,12 +167,19 @@ namespace UB
 
             agent.SetDestination(moveTarget);
             isMoving = true;
-            animationManager.Anim.SetBool("isMoving", isMoving);
+            animationManager.UpdateAnimatorMovementParameters(0, 1, false);
         }
 
         public void RollForInitiative()
         {
             Initiative = Random.Range(1, 20);
+        }
+
+        public virtual void StartBattle()
+        {
+            isInBattle = true;
+            animationManager.UpdateAnimatorMovementParameters(0, 0, false);
+            RollForInitiative();
         }
 
         public virtual void StopBattle()

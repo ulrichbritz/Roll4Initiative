@@ -57,8 +57,7 @@ namespace UB
 
             foreach (CharacterManager characterController in allChars)
             {
-                characterController.isInBattle = true;
-                characterController.RollForInitiative();
+                characterController.StartBattle();
             }
             allChars = allChars.OrderByDescending(ch => ch.Initiative).ToList();
 

@@ -21,6 +21,11 @@ namespace UB
             }
         }
 
+        public override void StartBattle()
+        {
+            base.StartBattle();
+        }
+
     }
 }
 
