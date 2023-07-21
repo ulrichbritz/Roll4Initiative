@@ -6001,7 +6001,7 @@ MonoBehaviour:
   actionCamViewAngle: 30
   moveSpeed: 40
   manualMoveSpeed: 10
-  battleRotateSpeed: 0
+  battleRotateSpeed: 100
   offset: {x: 0, y: 0, z: 0}
   smoothTime: 0
   roamingRotateSpeed: 100
