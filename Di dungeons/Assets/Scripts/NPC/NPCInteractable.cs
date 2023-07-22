@@ -25,15 +25,11 @@ namespace UB
         {
             animManager = GetComponent<AnimationManager>();
             npcHeadLookAt = GetComponent<NPCHeadLookAt>();
-            interactableText = "Interact with +" + npcName;
         }
 
         public override void Interact(Transform interactorTransform = null)
         {
             base.Interact();
-
-            if(interactorTransform != null)
-                transform.LookAt(interactorTransform);
 
             animManager.Anim.Play("Talk");
 

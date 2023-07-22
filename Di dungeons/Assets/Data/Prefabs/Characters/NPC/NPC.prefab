@@ -161,8 +161,8 @@ MonoBehaviour:
         transform: {fileID: 0}
         weight: 0
     m_Offset: {x: 0, y: 0, z: 0}
-    m_MinLimit: -180
-    m_MaxLimit: 180
+    m_MinLimit: -80
+    m_MaxLimit: 80
     m_AimAxis: 4
     m_UpAxis: 2
     m_WorldUpType: 0
@@ -1349,10 +1349,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'Neck'\n\tTransform 'Head'\n\tTransform 'Neck'\n\tTransform
-    'Head'\n\tTransform 'Neck'\n\tTransform 'Head'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -2534,11 +2531,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524d53b60d2832540a6958e367fb3693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactText: Talk to Mary.
   raduis: 2
   interactionPoint: {fileID: 7181223296138483331}
-  interactableText: Interact
   npcName: 
-  playerHeight: 1.8
+  playerHeight: 1.4
 --- !u!114 &7181223296138483329
 MonoBehaviour:
   m_ObjectHideFlags: 0

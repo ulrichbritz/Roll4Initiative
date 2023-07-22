@@ -188,7 +188,7 @@ namespace UB
         {
             if (interactInput)
             {
-              //  interactInput = false;
+                interactInput = false;
 
                 if (playerManager.interactableObject != null)
                 {

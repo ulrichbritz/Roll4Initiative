@@ -4,9 +4,10 @@ namespace UB
 {
     public class Interactable : MonoBehaviour
     {
+        [SerializeField] private string interactText;
+
         public float raduis = 3f;
         public Transform interactionPoint;
-        public string interactableText;
 
         bool isFocus = false;
         Transform player;
@@ -30,6 +31,11 @@ namespace UB
         private void Update()
         {
             
+        }
+
+        public string GetInteractText()
+        {
+            return interactText;
         }
 
 

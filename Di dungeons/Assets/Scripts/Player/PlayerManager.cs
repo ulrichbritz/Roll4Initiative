@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace UB
 {
@@ -92,7 +93,6 @@ namespace UB
         {
             //handle movement
             HandleRoamingMovement();
-            //CheckForInteractable();
         }
 
         public void HandleRoamingMovement()
@@ -264,14 +264,67 @@ namespace UB
         //interaction
         public void CheckForInteractable()
         {
+            List<Interactable> interactableList = new List<Interactable>();
+
             Collider[] colliders = Physics.OverlapSphere(transform.position, interactRange);
             foreach (Collider collider in colliders)
             {
                 if(collider.TryGetComponent(out Interactable interactable))
                 {
-                    interactable.Interact(transform);
+                    interactableList.Add(interactable);
                 }
             }
+
+            Interactable nearestInteractable = null;
+            if (interactableList.Count > 0)
+            {
+                foreach (Interactable interactable in interactableList)
+                {
+                    if (nearestInteractable == null)
+                    {
+                        nearestInteractable = interactable;
+                    }
+                    else if ((interactable.transform.position - transform.position).sqrMagnitude < (nearestInteractable.transform.position - transform.position).sqrMagnitude)
+                    {
+                        nearestInteractable = interactable;
+                    }
+                }
+
+                nearestInteractable.Interact(transform);
+            }
+     
+        }
+
+        public Interactable GetInteractableObject()
+        {
+            List<Interactable> interactableList = new List<Interactable>();
+
+            Collider[] colliders = Physics.OverlapSphere(transform.position, interactRange);
+            foreach (Collider collider in colliders)
+            {
+                if (collider.TryGetComponent(out Interactable interactable))
+                {
+                    interactableList.Add(interactable);
+                }
+            }
+
+            Interactable nearestInteractable = null;
+            if (interactableList.Count > 0)
+            {
+                foreach (Interactable interactable in interactableList)
+                {
+                    if (nearestInteractable == null)
+                    {
+                        nearestInteractable = interactable;
+                    }
+                    else if((interactable.transform.position - transform.position).sqrMagnitude < (nearestInteractable.transform.position - transform.position).sqrMagnitude)
+                    {
+                        nearestInteractable = interactable;
+                    }
+                }               
+            }
+
+            return nearestInteractable;
         }
 
         public void InteractWithInteractable()
