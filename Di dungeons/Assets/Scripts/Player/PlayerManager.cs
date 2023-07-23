@@ -44,6 +44,10 @@ namespace UB
         [Header("Jump")]
         private Vector3 jumpDirection;
 
+        [Header("Interacting")]
+        private bool isInteracting = false;
+        public bool IsInteracting => isInteracting;
+
 
 
 

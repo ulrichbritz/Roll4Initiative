@@ -1,11 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace UB
 {
     public class Grid
     {
+        public const int HEAT_MAP_MAX_VALUE = 100;
+        public const int HEAT_MAP_MIN_VALUE = 0;
+
+        public event EventHandler<OnGridValueChangedEventArgs> OnGridValueChanged;
+
+        public class OnGridValueChangedEventArgs : EventArgs
+        {
+            public int x;
+            public int y;
+        }
+
         private int width;
         private int height;
         private float cellSize;
@@ -52,8 +64,13 @@ namespace UB
         {
             if(x >= 0 && y >= 0 && x < width && y < height)
             {
-                gridArray[x, y] = value;
-            }           
+                gridArray[x, y] = Mathf.Clamp(value, HEAT_MAP_MIN_VALUE, HEAT_MAP_MAX_VALUE);
+            }
+
+            if (OnGridValueChanged != null)
+            {
+                OnGridValueChanged(this, new OnGridValueChangedEventArgs { x = x, y = y });
+            }
         }
 
         public void SetValue(Vector3 worldPos, int value)

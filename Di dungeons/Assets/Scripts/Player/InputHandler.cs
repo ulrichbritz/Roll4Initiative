@@ -115,6 +115,9 @@ namespace UB
             if (playerManager.isInBattle)
                 return;
 
+            if (playerManager.IsInteracting)
+                return;
+
             //movement
             HandlePlayerMovementInput();
             HandleCameraMovementInput();

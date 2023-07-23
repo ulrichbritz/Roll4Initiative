@@ -14,6 +14,8 @@ namespace UB
 
         bool hasInteracted = false;
 
+        PlayerManager playerManager;
+
         public virtual void Interact(Transform interactorTransform = null)
         {
             Debug.Log("Interacted with " + gameObject.name);
@@ -38,8 +40,32 @@ namespace UB
             return interactText;
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.gameObject.GetComponent<PlayerManager>() != null)
+            {
+                playerManager = other.gameObject.GetComponent<PlayerManager>();
+            }
+        }
 
-        
+        private void OnTriggerStay(Collider other)
+        {
+            if(playerManager != null)
+            {
+                PlayerInteractUI.instance.SeeIfNearestInteractable(playerManager);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if(other.gameObject.GetComponent<PlayerManager>() == playerManager)
+            {
+                playerManager = null;
+            }
+        }
+
+
+
 
         private void OnDrawGizmosSelected()
         {

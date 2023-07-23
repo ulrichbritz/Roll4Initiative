@@ -147,6 +147,7 @@ namespace UB
                         animationManager.UpdateAnimatorMovementParameters(0, 0, false);
 
                         GameManager.instance.FinishedMovement(moveRangeToSpend);
+
                         moveRangeToSpend = 0;
                     }
                 }
@@ -181,7 +182,13 @@ namespace UB
         public virtual void StartBattle()
         {
             isInBattle = true;
+
             animationManager.SetInBattle(isInBattle);
+
+            float posX = Mathf.RoundToInt(transform.position.x + 0.5f) - 0.5f;
+            float posZ = Mathf.RoundToInt(transform.position.z + 0.5f) - 0.5f;
+            transform.position = new Vector3(posX, transform.position.y, posZ);
+
             moveTarget = transform.position;
             animationManager.UpdateAnimatorMovementParameters(0, 0, false);
             RollForInitiative();

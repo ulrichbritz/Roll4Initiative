@@ -6,6 +6,8 @@ namespace UB
 {
     public class Testing : MonoBehaviour
     {
+        public static Testing instance;
+
         [SerializeField]Transform player;
         Grid grid;
 
@@ -14,13 +16,21 @@ namespace UB
             float moveRange = (player.GetComponent<CharacterStats>().MoveRange);
             grid = new Grid(Mathf.RoundToInt(moveRange), Mathf.RoundToInt(moveRange), 1f, new Vector3(player.position.x - (moveRange/2), player.position.y, player.position.z - (moveRange/2)));
         }
+
+        public void MakeGrid()
+        {
+            float moveRange = (player.GetComponent<CharacterStats>().MoveRange);
+            grid = new Grid(Mathf.RoundToInt(moveRange), Mathf.RoundToInt(moveRange), 1f, new Vector3(player.position.x - (moveRange / 2), player.position.y, player.position.z - (moveRange / 2)));
+        }
        
 
         private void Update()
         {
             if (Input.GetMouseButtonDown(0))
             {
-                grid.SetValue(GetMouseWorldPos(), 56);
+                Vector3 position = GetMouseWorldPos();
+                int value = grid.GetValue(position);
+                grid.SetValue(position, value + 5);
             }
 
             if (Input.GetMouseButtonDown(1))
@@ -42,9 +52,9 @@ namespace UB
             }
 
             return Vector3.zero;
-        }
-
+        }   
         
+
     }
 }
 
