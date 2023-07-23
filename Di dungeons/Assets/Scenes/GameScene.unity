@@ -2226,80 +2226,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!1001 &299407268
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 7181223296138483328, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
-        type: 3}
-      propertyPath: interactText
-      value: Talk to Maria.
-      objectReference: {fileID: 0}
-    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 22.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 18.23
-      objectReference: {fileID: 0}
-    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7181223296138483386, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
-        type: 3}
-      propertyPath: m_Name
-      value: NPC (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ce3d59dc86a35af44b98ae0c1fb1a50c, type: 3}
 --- !u!1001 &310021200
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7483,6 +7409,80 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1168925608}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1204893094
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7181223296138483328, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+        type: 3}
+      propertyPath: interactText
+      value: Talk to Maria.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 22.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 18.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181223296138483386, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+        type: 3}
+      propertyPath: m_Name
+      value: NPC (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ce3d59dc86a35af44b98ae0c1fb1a50c, type: 3}
 --- !u!1 &1229365742
 GameObject:
   m_ObjectHideFlags: 0
