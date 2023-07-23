@@ -11,6 +11,7 @@ namespace UB
         //scripts
         private AnimationManager animManager;
         private NPCHeadLookAt npcHeadLookAt;
+        [SerializeField] Vector3 normalLookAtPosition;
 
         //components
 
@@ -40,6 +41,14 @@ namespace UB
             npcHeadLookAt.LookAtPosition(interactorTransform.position + Vector3.up * playerHeight);
 
             ConversationManager.Instance.StartConversation(myConversation);
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if(other.GetComponent<PlayerManager>() != null)
+            {
+                npcHeadLookAt.LookAtPosition(normalLookAtPosition);
+            }
         }
 
 

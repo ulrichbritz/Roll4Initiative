@@ -2531,11 +2531,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524d53b60d2832540a6958e367fb3693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: Talk to Mary.
+  interactText: Talk to Maria.
   raduis: 2
   interactionPoint: {fileID: 7181223296138483331}
   npcName: 
   playerHeight: 1.4
+  myConversation: {fileID: 7459986837196788658, guid: 70da4d7e5add7de4c86d8436d5b4a7ea,
+    type: 3}
 --- !u!114 &7181223296138483329
 MonoBehaviour:
   m_ObjectHideFlags: 0

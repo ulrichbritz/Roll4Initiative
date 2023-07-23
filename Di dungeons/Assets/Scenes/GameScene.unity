@@ -10332,9 +10332,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3900108755196472086, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca,
         type: 3}
+      propertyPath: OptionImage
+      value: 
+      objectReference: {fileID: -1290212639, guid: 37fb606a4e59a704e8ea2c9bfd51d320,
+        type: 3}
+    - target: {fileID: 3900108755196472086, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca,
+        type: 3}
       propertyPath: BackgroundImage
       value: 
-      objectReference: {fileID: 21300000, guid: bf566e80557acbc45b9a695fcaa25327,
+      objectReference: {fileID: -1290212639, guid: 37fb606a4e59a704e8ea2c9bfd51d320,
         type: 3}
     - target: {fileID: 3900108755196472087, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca,
         type: 3}
@@ -10440,6 +10446,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3900108755395677320, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3900108755395677320, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3900108755395677320, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3900108755395677320, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6116449485086562217, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca,
         type: 3}
@@ -11894,17 +11920,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7181223296138483328, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
-        type: 3}
-      propertyPath: interactText
-      value: Talk to Maria.
+    - target: {fileID: 1783423936, guid: ce3d59dc86a35af44b98ae0c1fb1a50c, type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.weight
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7181223296138483328, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
         type: 3}
-      propertyPath: myConversation
-      value: 
-      objectReference: {fileID: 7459986837196788658, guid: 70da4d7e5add7de4c86d8436d5b4a7ea,
+      propertyPath: normalLookAtPosition.y
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181223296138483328, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
         type: 3}
+      propertyPath: normalLookAtPosition.z
+      value: 0.55
+      objectReference: {fileID: 0}
     - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
         type: 3}
       propertyPath: m_RootOrder
