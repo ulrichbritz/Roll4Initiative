@@ -32,7 +32,7 @@ namespace UB
 
         private void Start()
         {
-            
+            playerManager = PlayerManager.instance;
         }
 
         private void Update()
@@ -43,7 +43,7 @@ namespace UB
 
         public void SeeIfNearestInteractable(PlayerManager playerManager)
         {
-            if (playerManager.GetInteractableObject() != null)
+            if (playerManager.GetInteractableObject() != null && playerManager.isInteracting == false)
             {
                 Show(playerManager.GetInteractableObject());
             }

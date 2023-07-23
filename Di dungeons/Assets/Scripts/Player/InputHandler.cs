@@ -115,7 +115,7 @@ namespace UB
             if (playerManager.isInBattle)
                 return;
 
-            if (playerManager.IsInteracting)
+            if (playerManager.isInteracting)
                 return;
 
             //movement

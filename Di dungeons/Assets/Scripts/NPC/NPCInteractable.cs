@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DialogueEditor;
 
 namespace UB
 {
@@ -20,6 +21,9 @@ namespace UB
         [Header("Interaction Values")]
         [SerializeField] float playerHeight = 1.8f;
 
+        [Header("Dialogue")]
+        [SerializeField] NPCConversation myConversation;
+
 
         private void Awake()
         {
@@ -34,6 +38,8 @@ namespace UB
             animManager.Anim.Play("Talk");
 
             npcHeadLookAt.LookAtPosition(interactorTransform.position + Vector3.up * playerHeight);
+
+            ConversationManager.Instance.StartConversation(myConversation);
         }
 
 
