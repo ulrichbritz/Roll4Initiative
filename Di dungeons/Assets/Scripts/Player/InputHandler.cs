@@ -158,6 +158,9 @@ namespace UB
 
         private void HandleCameraMovementInput()
         {
+            if (playerManager.uiFlag)
+                return;
+
             cameraVerticalInput = cameraMovementInput.y;
             cameraHorizontalInput = cameraMovementInput.x;
         }

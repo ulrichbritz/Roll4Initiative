@@ -47,6 +47,8 @@ namespace UB
         [Header("Interacting")]
         public bool isInteracting = false;
 
+        public bool uiFlag = false;
+
 
 
 
@@ -76,7 +78,7 @@ namespace UB
 
             agent.enabled = false;
 
-           // MouseControls.instance.HideCursor();
+            MouseControls.instance.HideCursor();
         }
 
         protected override void Update()

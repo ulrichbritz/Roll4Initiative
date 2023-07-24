@@ -26,11 +26,28 @@ namespace UB
         public void ToggleInventory()
         {
             inventoryUIObject.SetActive(!inventoryUIObject.activeSelf);
+            CheckIfNeedMouse();
         }
 
         public void ToggleEquipment()
         {
             equipmentUIObject.SetActive(!equipmentUIObject.activeSelf);
+            CheckIfNeedMouse();
+        }
+
+        private void CheckIfNeedMouse()
+        {
+            if(inventoryUIObject.activeSelf == true || equipmentUIObject == true)
+            {
+                MouseControls.instance.ShowCursor();
+                PlayerManager.instance.uiFlag = true;
+            }
+            
+            if(inventoryUIObject.activeSelf == false || equipmentUIObject == false)
+            {
+                MouseControls.instance.HideCursor();
+                PlayerManager.instance.uiFlag = false;
+            }
         }
     }
 }
