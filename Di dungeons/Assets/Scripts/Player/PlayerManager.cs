@@ -75,6 +75,8 @@ namespace UB
             base.Start();
 
             agent.enabled = false;
+
+            MouseControls.instance.HideCursor();
         }
 
         protected override void Update()
@@ -295,6 +297,7 @@ namespace UB
 
                 FaceTarget(nearestInteractable.gameObject.transform);
                 isInteracting = true;
+                MouseControls.instance.ShowCursor();
                 nearestInteractable.Interact(transform);
             }
      
@@ -389,6 +392,8 @@ namespace UB
         {
             base.StartBattle();
 
+            MouseControls.instance.ShowCursor();
+
             agent.enabled = true;
             moveAmount = 0;
             animationManager.UpdateAnimatorMovementParameters(0, 0, false);
@@ -397,6 +402,8 @@ namespace UB
         public override void StopBattle()
         {
             base.StopBattle();
+
+            MouseControls.instance.HideCursor();
 
             agent.enabled = false;
         }

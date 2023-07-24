@@ -8,6 +8,7 @@ namespace UB
     {
         public void EndInteraction()
         {
+            MouseControls.instance.HideCursor();
             PlayerManager.instance.isInteracting = false;
         }
     }

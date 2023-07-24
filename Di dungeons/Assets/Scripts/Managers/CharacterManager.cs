@@ -138,7 +138,7 @@ namespace UB
                 {
                     CameraController.instance.SetMoveTarget(transform.position);
 
-                    if (Vector3.Distance(transform.position, moveTarget) < .1f)
+                    if (Vector3.Distance(transform.position, moveTarget) < .2f)
                     {
                         transform.position = moveTarget;
                         agent.SetDestination(transform.position);
