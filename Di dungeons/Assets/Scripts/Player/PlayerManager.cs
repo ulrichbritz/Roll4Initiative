@@ -78,7 +78,7 @@ namespace UB
 
             agent.enabled = false;
 
-            //MouseControls.instance.HideCursor();
+            MouseControls.instance.HideCursor();
         }
 
         protected override void Update()

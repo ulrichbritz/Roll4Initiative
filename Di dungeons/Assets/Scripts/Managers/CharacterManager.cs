@@ -277,7 +277,8 @@ namespace UB
 
             foreach(Equipment equipment in equipmentManager.CurrentEquipment)
             {
-                armorCount += equipment.armorModifier;
+                if(equipment != null)
+                    armorCount += equipment.armorModifier;
             }
 
             return armorCount;

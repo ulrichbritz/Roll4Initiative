@@ -16,6 +16,7 @@ namespace UB
 
         [Header("Components")]
         public TMP_Text hpText;
+        public TMP_Text acText;
         public Slider hpSlider;
 
         [Header("Info")]
@@ -113,10 +114,15 @@ namespace UB
 
         public void UpdateHPDisplay()
         {
-            hpText.text = $"{currentHP}/{maxHP}";
+            if(hpText != null)
+            {
+                hpText.text = $"HP: {currentHP}/{maxHP}";
+                acText.text = $"AC: { GetComponent<CharacterManager>().GetOverallArmorCount()}";
 
-            hpSlider.maxValue = maxHP;
-            hpSlider.value = currentHP;
+                hpSlider.maxValue = maxHP;
+                hpSlider.value = currentHP;
+            }
+            
         }
 
         public void SetInitialInfoAmounts()
