@@ -10,6 +10,11 @@ namespace UB
         public EquipmentSlot equipmentSlot;
 
         public int armorModifier;
+        public int strengthModifier;
+        public int intelligenceModifier;
+        public int agilityModifier;
+        public int charismaModifier;
+        public int willpowerModifier;
 
         public override void Use()
         {

@@ -12,6 +12,9 @@ namespace UB
         public bool isUnarmed = false;
         public bool isTwoHanded = false;
 
+        [Header("Damage")]
+        public List<int> diceSides;
+
         [Header("isMelee")]
         public bool isMelee = true;
 

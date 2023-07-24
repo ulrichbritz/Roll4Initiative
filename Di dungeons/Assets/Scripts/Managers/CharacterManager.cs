@@ -271,6 +271,83 @@ namespace UB
            // allTargets[currentTarget].GetComponent<CharacterStats>().TakeDamage(Mathf.RoundToInt(characterStats.damage));
         }
 
+        public int GetOverallArmorCount()
+        {
+            int armorCount = 0;
+
+            foreach(Equipment equipment in equipmentManager.CurrentEquipment)
+            {
+                armorCount += equipment.armorModifier;
+            }
+
+            return armorCount;
+        }
+
+        public int GetOverallStrengthModifier()
+        {
+            int equipmentMod = 0;
+
+            foreach (Equipment equipment in equipmentManager.CurrentEquipment)
+            {
+                equipmentMod += equipment.strengthModifier;
+            }
+
+            return Mathf.FloorToInt(characterStats.GetStatStrengthModifier() + equipmentMod);
+        }
+
+        public void GetOverAllInitiativeModifier()
+        {
+
+        }
+
+        public int GetOverallIntelligenceModifier()
+        {
+            int equipmentMod = 0;
+
+            foreach (Equipment equipment in equipmentManager.CurrentEquipment)
+            {
+                equipmentMod += equipment.intelligenceModifier;
+            }
+
+            return Mathf.FloorToInt(characterStats.GetStatIntelligenceModifier() + equipmentMod);
+        }
+
+        public int GetOverallAgilityModifier()
+        {
+            int equipmentMod = 0;
+
+            foreach (Equipment equipment in equipmentManager.CurrentEquipment)
+            {
+                equipmentMod += equipment.agilityModifier;
+            }
+
+            return Mathf.FloorToInt(characterStats.GetStatAgilityModifier() + equipmentMod);
+        }
+
+        public int GetOverallCharismaModifier()
+        {
+            int equipmentMod = 0;
+
+            foreach (Equipment equipment in equipmentManager.CurrentEquipment)
+            {
+                equipmentMod += equipment.charismaModifier;
+            }
+
+            return Mathf.FloorToInt(characterStats.GetStatCharismaModifier() + equipmentMod);
+        }
+
+        public int GetOverallWillpowerModifier()
+        {
+            int equipmentMod = 0;
+
+            foreach (Equipment equipment in equipmentManager.CurrentEquipment)
+            {
+                equipmentMod += equipment.willpowerModifier;
+            }
+
+            return Mathf.FloorToInt(characterStats.GetStatWillpowerModifier() + equipmentMod);
+        }
+
 
 
 
