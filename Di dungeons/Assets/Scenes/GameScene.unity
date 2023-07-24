@@ -179,7 +179,8 @@ MonoBehaviour:
   - {fileID: 74914341199536911, guid: 401032577b3d6334fbe1bc46eabef47d, type: 3}
   - {fileID: 74914341199536911, guid: 401032577b3d6334fbe1bc46eabef47d, type: 3}
   diceHolder: {fileID: 1932136490}
-  totalValue: {fileID: 1892136725}
+  totalValueText: {fileID: 1892136725}
+  totalValue: 0
 --- !u!1001 &31203586
 PrefabInstance:
   m_ObjectHideFlags: 0
