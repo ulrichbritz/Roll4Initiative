@@ -4,14 +4,17 @@ using UnityEngine;
 
 namespace UB
 {
-    public class Dice
+    public class Di
     {
+        [SerializeField] List<GameObject> diModels;
+
         public int sides;
         public int rollValue;
+        public GameObject diModel;
 
-        public Dice(int _sides)
+        public Di(int _sides)
         {
-            sides = _sides;
+            sides = _sides;               
         }
 
         public void Roll()
@@ -22,16 +25,16 @@ namespace UB
 
     public class DiceRoll
     {
-        public List<Dice> diceList;
+        public List<Di> diceList;
 
         public DiceRoll()
         {
-            diceList = new List<Dice>();
+            diceList = new List<Di>();
         }
 
         public void AddDice(int _sides)
         {
-            diceList.Add(new Dice(_sides));
+            diceList.Add(new Di(_sides));
         }
 
         public void Roll()
