@@ -13,7 +13,7 @@ namespace UB
         public bool isTwoHanded = false;
 
         [Header("Damage")]
-        public List<int> diceSides;
+        public List<GameObject> weaponDiceList;
 
         [Header("isMelee")]
         public bool isMelee = true;

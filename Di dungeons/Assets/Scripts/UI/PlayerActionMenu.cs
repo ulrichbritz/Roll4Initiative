@@ -66,7 +66,7 @@ namespace UB
             HideMenus();
             MoveGrid.instance.HideMovePoints();
 
-            GameManager.instance.activeCharacter.DoPrimaryAttack();
+            StartCoroutine(GameManager.instance.activeCharacter.DoPrimaryAttack());
 
             GameManager.instance.targetMarker.SetActive(false);
 

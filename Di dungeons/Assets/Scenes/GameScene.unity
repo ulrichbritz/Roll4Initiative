@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b4ddce81be624b4db85be27bfd1ce37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diceToRollList: []
+  rollingSystemHolder: {fileID: 246727451}
   diceHolder: {fileID: 1932136490}
   totalValueText: {fileID: 1892136725}
   totalValue: 0
@@ -2209,7 +2209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &246727452
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7062,7 +7062,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &718812310
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15580,16 +15580,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 975065064, guid: c7938fb27c38a7b4eae78b3573bf5fec, type: 3}
-      propertyPath: currentEquipment.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: bbfba2c3717e0d942b033d1ab489c781,
-        type: 2}
-    - target: {fileID: 975065064, guid: c7938fb27c38a7b4eae78b3573bf5fec, type: 3}
-      propertyPath: currentEquipment.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: d7c6f508d2fa8f74c8ff3384aab4df52,
-        type: 2}
     - target: {fileID: 2990962033629165324, guid: c7938fb27c38a7b4eae78b3573bf5fec,
         type: 3}
       propertyPath: m_RootOrder
@@ -16107,6 +16097,23 @@ PrefabInstance:
       propertyPath: normalLookAtPosition.z
       value: 0.55
       objectReference: {fileID: 0}
+    - target: {fileID: 7181223296138483329, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+        type: 3}
+      propertyPath: d20
+      value: 
+      objectReference: {fileID: 74914341199536911, guid: 401032577b3d6334fbe1bc46eabef47d,
+        type: 3}
+    - target: {fileID: 7181223296138483329, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+        type: 3}
+      propertyPath: d20.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181223296138483329, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
+        type: 3}
+      propertyPath: d20.Array.data[0]
+      value: 
+      objectReference: {fileID: 74914341199536911, guid: 401032577b3d6334fbe1bc46eabef47d,
+        type: 3}
     - target: {fileID: 7181223296138483331, guid: ce3d59dc86a35af44b98ae0c1fb1a50c,
         type: 3}
       propertyPath: m_RootOrder

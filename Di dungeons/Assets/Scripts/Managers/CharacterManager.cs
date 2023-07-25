@@ -37,6 +37,7 @@ namespace UB
 
         [Header("Stats")]
         public int Initiative;
+        public List<GameObject> d20;
 
         [Header("Actions")]
         [HideInInspector]
@@ -255,11 +256,29 @@ namespace UB
 
         }
 
-        public void DoPrimaryAttack()
+        public IEnumerator DoPrimaryAttack()
         {
+            int enemyAC = allTargets[currentTarget].GetComponent<CharacterManager>().GetOverallArmorCount();
+            int playerRoll = 0;
+
             CameraController.instance.SetActionView();
 
-            animationManager.Anim.CrossFade(equipmentManager.rightWeapon.light_attack_01, 0.2f);
+            Roller.instance.StartDiceRolling(d20);
+
+            yield return new WaitForSeconds(3.5f);
+
+            if(Roller.instance.totalValue > enemyAC)
+            {
+                Debug.Log("Hit");
+                animationManager.Anim.CrossFade(equipmentManager.rightWeapon.light_attack_01, 0.2f);
+            }
+            else
+            {
+                Debug.Log("Miss");
+            }
+
+
+            
 
            // allTargets[currentTarget].GetComponent<CharacterStats>().TakeDamage(Mathf.RoundToInt(characterStats.damage));              
         }

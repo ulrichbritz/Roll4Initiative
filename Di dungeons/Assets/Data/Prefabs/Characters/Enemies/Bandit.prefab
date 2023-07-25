@@ -4686,6 +4686,8 @@ MonoBehaviour:
   characterController: {fileID: 0}
   moveTarget: {x: 0, y: 0, z: 0}
   Initiative: 0
+  d20:
+  - {fileID: 74914341199536911, guid: 401032577b3d6334fbe1bc46eabef47d, type: 3}
   allTargets: []
   primaryAttackTargets: []
   secondaryAttackTargets: []

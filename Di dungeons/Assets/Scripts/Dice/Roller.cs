@@ -10,7 +10,8 @@ namespace UB
     {
         public static Roller instance;
 
-        public List<GameObject> diceToRollList;
+        [SerializeField] GameObject rollingSystemHolder;
+
         private List<GameObject> diceBeingRolled;
 
         [SerializeField] Transform diceHolder;
@@ -31,8 +32,10 @@ namespace UB
                 Destroy(gameObject);
             }
         }
-        public void StartDiceRolling()
+        public void StartDiceRolling(List<GameObject> diceToRollList)
         {
+            rollingSystemHolder.SetActive(true);
+
             foreach (DiceInformation child in diceHolder.GetComponentsInChildren<DiceInformation>())
             {
                 Destroy(child.gameObject);
@@ -73,6 +76,10 @@ namespace UB
             UpdateText();
 
             totalValue = diceRoll.TotalValue();
+
+            yield return new WaitForSeconds(2f);
+
+            rollingSystemHolder.SetActive(false);
         }
 
         /*
@@ -87,7 +94,7 @@ namespace UB
 
         private void UpdateText()
         {
-            for(int i = 0; i < diceToRollList.Count; i++)
+            for(int i = 0; i < diceBeingRolled.Count; i++)
             {
                 if(i < diceRoll.diceList.Count)
                 {

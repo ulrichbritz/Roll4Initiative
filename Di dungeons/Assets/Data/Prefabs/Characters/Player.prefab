@@ -790,6 +790,8 @@ MonoBehaviour:
   characterController: {fileID: 0}
   moveTarget: {x: 0, y: 0, z: 0}
   Initiative: 0
+  d20:
+  - {fileID: 74914341199536911, guid: 401032577b3d6334fbe1bc46eabef47d, type: 3}
   allTargets: []
   primaryAttackTargets: []
   secondaryAttackTargets: []
@@ -860,9 +862,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 12ae1db97837abb49b78aebed8809029, type: 2}
   - {fileID: 11400000, guid: 0d60b8b531d5f5343927826d180939ae, type: 2}
   currentEquipment:
+  - {fileID: 11400000, guid: bbfba2c3717e0d942b033d1ab489c781, type: 2}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: d7c6f508d2fa8f74c8ff3384aab4df52, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

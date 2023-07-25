@@ -17,10 +17,17 @@ MonoBehaviour:
   itemName: Unarmed
   equipmentSlot: 5
   armorModifier: 0
+  strengthModifier: 0
+  intelligenceModifier: 0
+  agilityModifier: 0
+  charismaModifier: 0
+  willpowerModifier: 0
   modelPrefab: {fileID: 8959831901648261355, guid: 1094a05eff1cf4b42b7e39f62cf18992,
     type: 3}
   isUnarmed: 0
   isTwoHanded: 0
+  weaponDiceList:
+  - {fileID: 74914341199536911, guid: 31dd1a9f20e71224da4dacc44764d022, type: 3}
   isMelee: 1
   right_hand_idle: Right_Hand_Idle_01
   left_hand_idle: Left_Hand_Idle_01
