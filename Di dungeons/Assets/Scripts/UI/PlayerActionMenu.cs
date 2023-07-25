@@ -70,7 +70,7 @@ namespace UB
 
             GameManager.instance.targetMarker.SetActive(false);
 
-            StartCoroutine(WaitToEndActionCo(3f, 1));
+            StartCoroutine(WaitToEndActionCo(6f, 1));
 
             primaryActionButton.enabled = false;
         }
