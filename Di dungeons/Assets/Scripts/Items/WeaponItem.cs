@@ -14,6 +14,7 @@ namespace UB
 
         [Header("Damage")]
         public List<GameObject> weaponDiceList;
+        public int damage;
 
         [Header("isMelee")]
         public bool isMelee = true;

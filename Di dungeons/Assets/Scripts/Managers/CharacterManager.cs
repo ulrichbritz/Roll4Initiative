@@ -270,6 +270,13 @@ namespace UB
             if(Roller.instance.totalValue > enemyAC)
             {
                 Debug.Log("Hit");
+                WeaponItem usedWeapon = equipmentManager.CurrentEquipment[(int)EquipmentSlot.Weapon] as WeaponItem;
+                Roller.instance.StartDiceRolling(usedWeapon.weaponDiceList);
+
+                yield return new WaitForSeconds(3.5f);
+
+                usedWeapon.damage = Roller.instance.totalValue;
+                
                 animationManager.Anim.CrossFade(equipmentManager.rightWeapon.light_attack_01, 0.2f);
             }
             else
@@ -277,10 +284,10 @@ namespace UB
                 Debug.Log("Miss");
             }
 
+            StartCoroutine(PlayerActionMenu.instance.WaitToEndActionCo(1.5f, 1));
 
-            
 
-           // allTargets[currentTarget].GetComponent<CharacterStats>().TakeDamage(Mathf.RoundToInt(characterStats.damage));              
+            // allTargets[currentTarget].GetComponent<CharacterStats>().TakeDamage(Mathf.RoundToInt(characterStats.damage));              
         }
 
         public void DoSecondaryAttack()

@@ -51,7 +51,6 @@ namespace UB
             {
                 diceRoll.AddDice(diceToRollList[i].GetComponent<DiceInformation>().diceSides);
                 GameObject thisDice = Instantiate(diceToRollList[i], diceHolder);
-                Debug.Log("spawned dice");
                 diceBeingRolled.Add(thisDice);
             }
 
