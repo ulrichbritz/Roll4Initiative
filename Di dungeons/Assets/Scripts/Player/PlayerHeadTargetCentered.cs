@@ -8,6 +8,8 @@ namespace UB
     {
         PlayerManager playerManager;
 
+        [SerializeField] private Vector3 normalPos;
+
         private Transform mainCameraTransform;
         [SerializeField] private float maxDistance = 10f; // Maximum distance to place the target
 
@@ -33,6 +35,10 @@ namespace UB
                     // If the raycast doesn't hit anything, move the target GameObject to the maximum distance
                     transform.position = mainCameraTransform.position + mainCameraTransform.forward * maxDistance;
                 }
+            }
+            else
+            {
+                transform.position = normalPos;
             }
             
         }
