@@ -13,6 +13,7 @@ namespace UB
         [Header("Menus")]
         [SerializeField] GameObject actionCountUI;
         [SerializeField] GameObject actionMenu;
+        [SerializeField] GameObject battleLogMenu;
 
         [Header("ActionButtons")]
         [SerializeField] Button primaryActionButton;
@@ -49,6 +50,16 @@ namespace UB
         public void ShowActionMenu()
         {
             actionMenu.SetActive(true);
+        }
+
+        public void ShowBattleLog()
+        {
+            battleLogMenu.SetActive(true);
+        }
+
+        public void HideBattleLog()
+        {
+            battleLogMenu.SetActive(false);
         }
 
         public void ShowActionCountUI()

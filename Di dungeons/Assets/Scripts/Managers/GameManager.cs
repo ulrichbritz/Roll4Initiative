@@ -9,6 +9,9 @@ namespace UB
     {
         public static GameManager instance;
 
+        [Header("Scripts")]
+        TextBoard textBoard;
+
         [Header("Battle Variables")]
         private BattleTrigger battleTriggerInUse;
         public CharacterManager activeCharacter;
@@ -33,7 +36,8 @@ namespace UB
 
         private void Start()
         {
-            //StartBattle();
+            //scripts
+            textBoard = TextBoard.instance;
         }
 
         private void Update()
@@ -42,10 +46,12 @@ namespace UB
         }
 
         //In Battle
+        #region In Battle
         public void StartBattle(List<CharacterManager> battleTriggerEnemies, CharacterManager player, BattleTrigger battleTrigger)
         {
             PlayerActionMenu playerActionMenu = PlayerActionMenu.instance;
             playerActionMenu.ShowActionCountUI();
+            playerActionMenu.ShowBattleLog();
 
             CameraController.instance.SetCameraState(CameraState.CameraBattleState);
 
@@ -149,11 +155,13 @@ namespace UB
 
             if (activeCharacter.isAI == false)
             {
+                textBoard.CreateUpdateMessage($"{activeCharacter.gameObject.name}'s turn", Color.green);
                 MoveGrid.instance.ShowPointsInRange(activeCharacter.CharacterStats.remainingMoveRange, activeCharacter.transform.position);
                 playerActionMenu.ShowActionMenu();
             }
             else
             {
+                textBoard.CreateUpdateMessage($"{activeCharacter.gameObject.name}'s turn", Color.red);
                 playerActionMenu.HideMenus();
                 activeCharacter.AIBrain.ChooseAction();
             }
@@ -205,6 +213,7 @@ namespace UB
             }
 
             HideMenusAndMoveGrid();
+            PlayerActionMenu.instance.HideBattleLog();
             CameraController.instance.SetCameraState(CameraState.CameraRoamingState);
         }
 
@@ -216,6 +225,7 @@ namespace UB
             }
 
             HideMenusAndMoveGrid();
+            PlayerActionMenu.instance.HideBattleLog();
             CameraController.instance.SetCameraState(CameraState.CameraRoamingState);
         }
 
@@ -229,5 +239,7 @@ namespace UB
             playerActionMenu.HideActionCountUI();
         }
     }
+
+    #endregion
 
 }

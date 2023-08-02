@@ -21,6 +21,7 @@ namespace UB
         private AIBrain aiBrain;
         public AIBrain AIBrain => aiBrain;
         PlayerInventory playerInventory;
+        TextBoard textBoard;
 
 
         [Header("Components")]
@@ -71,8 +72,11 @@ namespace UB
             //components
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponentInChildren<Animator>();
-            characterController = GetComponent<CharacterController>();
+            characterController = GetComponent<CharacterController>();     
+        }
 
+        protected virtual void Start()
+        {
             //scripts
             characterStats = GetComponent<CharacterStats>();
             animationManager = GetComponent<AnimationManager>();
@@ -80,10 +84,8 @@ namespace UB
             equipmentManager = GetComponent<EquipmentManager>();
             if (GetComponent<AIBrain>() != null)
                 aiBrain = GetComponent<AIBrain>();
-        }
+            textBoard = TextBoard.instance;
 
-        protected virtual void Start()
-        {
             moveTarget = transform.position;
 
             agent.speed = characterStats.moveSpeed;
@@ -147,6 +149,7 @@ namespace UB
                         animationManager.SetMovingBool(isMoving);
                         animationManager.UpdateAnimatorMovementParameters(0, 0, false);
 
+                        textBoard.CreateUpdateMessage($"{gameObject.name} spent {moveRangeToSpend} movement", Color.blue);
                         GameManager.instance.FinishedMovement(moveRangeToSpend);
 
                         moveRangeToSpend = 0;
@@ -258,8 +261,10 @@ namespace UB
 
         public IEnumerator DoPrimaryAttack()
         {
+
             int enemyAC = allTargets[currentTarget].GetComponent<CharacterManager>().GetOverallArmorCount();
-            int playerRoll = 0;
+
+            textBoard.CreateUpdateMessage($"{gameObject.name} uses primary attack {allTargets[currentTarget].name}", Color.blue);
 
             CameraController.instance.SetActionView();
 
@@ -269,19 +274,20 @@ namespace UB
 
             if(Roller.instance.totalValue > enemyAC)
             {
-                Debug.Log("Hit");
+                textBoard.CreateUpdateMessage($"{gameObject.name} rolls {Roller.instance.totalValue} to hit and HITS!", Color.cyan);
                 WeaponItem usedWeapon = equipmentManager.CurrentEquipment[(int)EquipmentSlot.Weapon] as WeaponItem;
                 Roller.instance.StartDiceRolling(usedWeapon.weaponDiceList);
 
                 yield return new WaitForSeconds(3.5f);
 
                 usedWeapon.damage = Roller.instance.totalValue;
-                
+                textBoard.CreateUpdateMessage($"{gameObject.name} rolls {Roller.instance.totalValue} and deals {Roller.instance.totalValue} DAMAGE", Color.cyan);
+
                 animationManager.Anim.CrossFade(equipmentManager.rightWeapon.light_attack_01, 0.2f);
             }
             else
             {
-                Debug.Log("Miss");
+                textBoard.CreateUpdateMessage($"{gameObject.name} rolls {Roller.instance.totalValue} to hit and MISSES!", new Color(251, 134, 55));
             }
 
             StartCoroutine(PlayerActionMenu.instance.WaitToEndActionCo(1.5f, 1));
