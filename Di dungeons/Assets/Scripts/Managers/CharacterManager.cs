@@ -22,6 +22,7 @@ namespace UB
         public AIBrain AIBrain => aiBrain;
         PlayerInventory playerInventory;
         TextBoard textBoard;
+        WeaponSlotManager weaponSlotManager;
 
 
         [Header("Components")]
@@ -85,6 +86,7 @@ namespace UB
             if (GetComponent<AIBrain>() != null)
                 aiBrain = GetComponent<AIBrain>();
             textBoard = TextBoard.instance;
+            weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
 
             moveTarget = transform.position;
 
@@ -281,6 +283,7 @@ namespace UB
                 yield return new WaitForSeconds(3.5f);
 
                 usedWeapon.damage = Roller.instance.totalValue;
+                weaponSlotManager.SetRightHandDamageColliderDamage(Roller.instance.totalValue);
                 textBoard.CreateUpdateMessage($"{gameObject.name} rolls {Roller.instance.totalValue} and deals {Roller.instance.totalValue} DAMAGE", Color.cyan);
 
                 animationManager.Anim.CrossFade(equipmentManager.rightWeapon.light_attack_01, 0.2f);

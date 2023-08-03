@@ -12,8 +12,8 @@ namespace UB
         WeaponHolderSlot rightHandSlot;
         WeaponHolderSlot secondaryWeaponSlot;
 
-        DamageCollider leftHandDamageCollider;
-        DamageCollider rightHandDamageCollider;
+        public DamageCollider leftHandDamageCollider;
+        public DamageCollider rightHandDamageCollider;
         
         private void Awake()
         {
@@ -97,6 +97,16 @@ namespace UB
         private void LoadRightHandDamageCollider()
         {
             rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+        }
+
+        public void SetRightHandDamageColliderDamage(int damage)
+        {
+            rightHandDamageCollider.currentWeaponDamage = damage;
+        }
+
+        public void SetLeftHandDamageColliderDamage(int damage)
+        {
+            leftHandDamageCollider.currentWeaponDamage = damage;
         }
 
         public void OpenRightHandDamageCollider()
