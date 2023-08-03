@@ -117,7 +117,7 @@ namespace UB
             if(hpText != null)
             {
                 hpText.text = $"HP: {currentHP}/{maxHP}";
-                acText.text = $"AC: { GetComponent<CharacterManager>().GetOverallArmorCount()}";
+                //acText.text = $"AC: { GetComponent<CharacterManager>().GetOverallArmorCount()}";
 
                 hpSlider.maxValue = maxHP;
                 hpSlider.value = currentHP;

@@ -10125,6 +10125,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bandit (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 151964563243213867, guid: 137d54cea1159d54d98e06d91439797b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7809692425439053123, guid: 137d54cea1159d54d98e06d91439797b,
         type: 3}
       propertyPath: m_AnchorMax.x
